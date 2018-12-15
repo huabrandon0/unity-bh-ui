@@ -3,12 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEditor;
 using UnityEngine.UI;
 
 namespace BH.UI
 {
+    [AddComponentMenu("UI/BH.UI - UIButton")]
     public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
+        [MenuItem("GameObject/UI/BH.UI - UIButton")]
+        static void CreateUIButton(MenuCommand menuCommand)
+        {
+            // Check if there is a Canvas in the scene.
+            Canvas canvas = FindObjectOfType<Canvas>();
+            if (canvas == null)
+            {
+                // Create new Canvas since none exists in the scene.
+                GameObject canvasObject = new GameObject("Canvas");
+                canvas = canvasObject.AddComponent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+                // Add a Canvas Scaler Component.
+                canvas.gameObject.AddComponent<CanvasScaler>();
+
+                // Add a Graphic Raycaster Component.
+                canvas.gameObject.AddComponent<GraphicRaycaster>();
+
+                Undo.RegisterCreatedObjectUndo(canvasObject, "Create " + canvasObject.name);
+            }
+
+            GameObject button = new GameObject("BH.UI - UIButton");
+            RectTransform buttonRectTransform = button.AddComponent<RectTransform>();
+            Selection.activeObject = button;
+            UIButton buttonUIButton = button.AddComponent(typeof(UIButton)) as UIButton;
+
+            Undo.RegisterCreatedObjectUndo(button, "Create " + button.name);
+
+            GameObject raycastImage = new GameObject("RaycastImage");
+            raycastImage.AddComponent<RectTransform>();
+            GameObjectUtility.SetParentAndAlign(raycastImage, button);
+            Image raycastImageImage = raycastImage.AddComponent(typeof(Image)) as Image;
+            raycastImageImage.color = Color.clear;
+
+            Undo.RegisterCreatedObjectUndo(raycastImage, "Create " + raycastImage.name);
+
+            GameObject animatedImage = new GameObject("AnimatedImage");
+            animatedImage.AddComponent<RectTransform>();
+            GameObjectUtility.SetParentAndAlign(animatedImage, button);
+            Image animatedImageImage = animatedImage.AddComponent(typeof(Image)) as Image;
+            animatedImageImage.raycastTarget = false;
+            buttonUIButton._buttonAnimator = animatedImage.AddComponent(typeof(UIImageAnimator)) as UIImageAnimator;
+
+            Undo.RegisterCreatedObjectUndo(animatedImage, "Create " + animatedImage.name);
+
+            // Check if object is being create with left click or right click.
+            GameObject contextObject = menuCommand.context as GameObject;
+            if (contextObject == null)
+                GameObjectUtility.SetParentAndAlign(button, canvas.gameObject);
+            else
+                GameObjectUtility.SetParentAndAlign(button, contextObject);
+            
+            // Check if an event system already exists in the scene.
+            if (!FindObjectOfType<EventSystem>())
+            {
+                GameObject eventObject = new GameObject("EventSystem", typeof(EventSystem));
+                eventObject.AddComponent<StandaloneInputModule>();
+                Undo.RegisterCreatedObjectUndo(eventObject, "Create " + eventObject.name);
+            }
+        }
+
         interface IButtonState
         {
             void OnPointerEnter();

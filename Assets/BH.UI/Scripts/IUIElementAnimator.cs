@@ -7,7 +7,7 @@ namespace BH.UI
 {
     public interface IUIElementAnimator
     {
-        void FadeIn();
-        void FadeOut();
+        void Enter();
+        void Exit();
     }
 }
