@@ -875,6 +875,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024a3f2d4d08c55468d03f4603b0a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enterFrom: {x: 0, y: -100, z: 0}
+  _enterTo: {x: 0, y: 0, z: 0}
+  _enterDuration: 1
+  _enterDelay: 0
+  _exitTo: {x: 0, y: -100, z: 0}
+  _exitDuration: 1
+  _exitDelay: 0
   _idleColor: {r: 1, g: 1, b: 1, a: 1}
   _hoveredOverColor: {r: 0.8584906, g: 0.7259719, b: 0, a: 1}
   _pressedDownColor: {r: 1, g: 1, b: 1, a: 1}
@@ -955,14 +962,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _enterFrom: {x: 0, y: -100, z: 0}
-  _enterTo: {x: 0, y: 0, z: 0}
-  _enterDuration: 1
-  _enterDelay: 0
-  _exitTo: {x: 0, y: -100, z: 0}
-  _exitDuration: 1
-  _exitDelay: 0
-  _buttonAnimator: {fileID: 1650338752}
 --- !u!1 &1154574861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1012,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024a3f2d4d08c55468d03f4603b0a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enterFrom: {x: 0, y: -100, z: 0}
+  _enterTo: {x: 0, y: 0, z: 0}
+  _enterDuration: 1
+  _enterDelay: 0
+  _exitTo: {x: 0, y: -100, z: 0}
+  _exitDuration: 1
+  _exitDelay: 0
   _idleColor: {r: 1, g: 1, b: 1, a: 1}
   _hoveredOverColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   _pressedDownColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1060,14 +1066,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _enterFrom: {x: 0, y: -100, z: 0}
-  _enterTo: {x: 0, y: 0, z: 0}
-  _enterDuration: 1
-  _enterDelay: 0
-  _exitTo: {x: 0, y: -100, z: 0}
-  _exitDuration: 1
-  _exitDelay: 0
-  _buttonAnimator: {fileID: 1155565003}
 --- !u!1 &1155565001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,6 +1203,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024a3f2d4d08c55468d03f4603b0a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enterFrom: {x: 0, y: -100, z: 0}
+  _enterTo: {x: 0, y: 0, z: 0}
+  _enterDuration: 1
+  _enterDelay: 0.2
+  _exitTo: {x: 0, y: -100, z: 0}
+  _exitDuration: 1
+  _exitDelay: 0
   _idleColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
   _hoveredOverColor: {r: 0.3018868, g: 0.2552868, b: 0, a: 1}
   _pressedDownColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1285,14 +1290,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _enterFrom: {x: 0, y: -100, z: 0}
-  _enterTo: {x: 0, y: 0, z: 0}
-  _enterDuration: 1
-  _enterDelay: 0.2
-  _exitTo: {x: 0, y: -100, z: 0}
-  _exitDuration: 1
-  _exitDelay: 0
-  _buttonAnimator: {fileID: 686885938}
 --- !u!1 &1368976327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,6 +1454,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024a3f2d4d08c55468d03f4603b0a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enterFrom: {x: 0, y: -100, z: 0}
+  _enterTo: {x: 0, y: 0, z: 0}
+  _enterDuration: 1
+  _enterDelay: 0
+  _exitTo: {x: 0, y: -100, z: 0}
+  _exitDuration: 1
+  _exitDelay: 0
   _idleColor: {r: 1, g: 1, b: 1, a: 1}
   _hoveredOverColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   _pressedDownColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1504,14 +1508,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _enterFrom: {x: 0, y: -100, z: 0}
-  _enterTo: {x: 0, y: 0, z: 0}
-  _enterDuration: 1
-  _enterDelay: 0
-  _exitTo: {x: 0, y: -100, z: 0}
-  _exitDuration: 1
-  _exitDelay: 0
-  _buttonAnimator: {fileID: 1860213256}
 --- !u!1 &1571341234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,6 +1558,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024a3f2d4d08c55468d03f4603b0a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enterFrom: {x: 0, y: -100, z: 0}
+  _enterTo: {x: 0, y: 0, z: 0}
+  _enterDuration: 1
+  _enterDelay: 0.1
+  _exitTo: {x: 0, y: -100, z: 0}
+  _exitDuration: 1
+  _exitDelay: 0
   _idleColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
   _hoveredOverColor: {r: 0.6320754, g: 0.534833, b: 0, a: 1}
   _pressedDownColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1642,14 +1645,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _enterFrom: {x: 0, y: -100, z: 0}
-  _enterTo: {x: 0, y: 0, z: 0}
-  _enterDuration: 1
-  _enterDelay: 0.1
-  _exitTo: {x: 0, y: -100, z: 0}
-  _exitDuration: 1
-  _exitDelay: 0
-  _buttonAnimator: {fileID: 999585021}
 --- !u!1 &1581411343
 GameObject:
   m_ObjectHideFlags: 0

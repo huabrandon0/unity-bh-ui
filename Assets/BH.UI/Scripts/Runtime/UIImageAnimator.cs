@@ -1,91 +1,69 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
 namespace BH.UI
 {
     [RequireComponent(typeof(Image))]
-    public class UIImageAnimator : MonoBehaviour
+    public class UIImageAnimator : UIRectTransformAnimator
     {
         Image _image;
 
-        void Awake()
+        protected override void Awake()
         {
-            _image = GetComponent<Image>();
+            base.Awake();
+            if (!_image)
+                _image = GetComponent<Image>();
         }
 
-        public void ChangeAlpha(float endAlpha, float duration)
+        public override void ChangeAlpha(float endAlpha, float duration)
         {
+            if (!_image)
+                _image = GetComponent<Image>();
+
             _image.DOFade(endAlpha, duration);
         }
 
-        public void ChangeAlpha(float startAlpha, float endAlpha, float duration)
+        public override void ChangeAlpha(float startAlpha, float endAlpha, float duration)
         {
+            if (!_image)
+                _image = GetComponent<Image>();
+
             _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, startAlpha);
             _image.DOFade(endAlpha, duration);
         }
 
-        public void ChangeColor(Color endColor, float duration)
+        public override void ChangeColor(Color endColor, float duration)
         {
+            if (!_image)
+                _image = GetComponent<Image>();
+
             _image.DOColor(endColor, duration);
         }
 
-        public void ChangeColor(Color startColor, Color endColor, float duration)
+        public override void ChangeColor(Color startColor, Color endColor, float duration)
         {
+            if (!_image)
+                _image = GetComponent<Image>();
+
             _image.color = startColor;
             _image.DOColor(endColor, duration);
         }
-
-        public void ChangeScale(Vector3 endScale, float duration)
+        
+        public override void SetAlpha(float alpha)
         {
-            _image.rectTransform.DOScale(endScale, duration);
-        }
+            if (!_image)
+                _image = GetComponent<Image>();
 
-        public void ChangeScale(float endScale, float duration)
-        {
-            _image.rectTransform.DOScale(endScale, duration);
-        }
-
-        public void ChangeAnchoredPosition3D(Vector3 endPosition, float duration)
-        {
-            _image.rectTransform.DOAnchorPos3D(endPosition, duration);
-        }
-
-        public void ChangeAnchoredPosition3D(Vector3 startPosition, Vector3 endPosition, float duration)
-        {
-            _image.rectTransform.anchoredPosition3D = startPosition;
-            ChangeAnchoredPosition3D(endPosition, duration);
-        }
-
-        public void SetAlpha(float alpha)
-        {
-            _image = GetComponent<Image>();
             _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, alpha);
         }
 
-        public void SetColor(Color color)
+        public override void SetColor(Color color)
         {
-            _image = GetComponent<Image>();
+            if (!_image)
+                _image = GetComponent<Image>();
+
             _image.color = color;
-        }
-
-        public void SetScale(Vector3 scale)
-        {
-            _image = GetComponent<Image>();
-            _image.rectTransform.localScale = scale;
-        }
-
-        public void SetScale(float scale)
-        {
-            SetScale(Vector3.one * scale);
-        }
-
-        public void SetAnchoredPosition3D(Vector3 position)
-        {
-            _image = GetComponent<Image>();
-            _image.rectTransform.anchoredPosition3D = position;
         }
     }
 }
