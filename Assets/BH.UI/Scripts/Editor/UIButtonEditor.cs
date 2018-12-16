@@ -14,7 +14,9 @@ namespace BH.UI
             // Track Inspector foldout panel states, globally.
             public static bool color = true;
             public static bool scale = true;
-            public static bool AnchoredPosition3D = true;
+            public static bool anchoredPosition3D = true;
+            public static bool soundEffects = true;
+            public static bool events = true;
         }
 
         SerializedProperty _idleColor;
@@ -31,6 +33,16 @@ namespace BH.UI
         SerializedProperty _hoveredOverAnchoredPosition3D;
         SerializedProperty _pressedDownAnchoredPosition3D;
         SerializedProperty _changeAnchoredPosition3DDuration;
+        
+        SerializedProperty _playOnButtonDown;
+        SerializedProperty _playOnButtonUp;
+        SerializedProperty _playOnButtonEnter;
+        SerializedProperty _playOnButtonExit;
+        
+        SerializedProperty _onButtonDown;
+        SerializedProperty _onButtonUp;
+        SerializedProperty _onButtonEnter;
+        SerializedProperty _onButtonExit;
 
         void OnEnable()
         {
@@ -48,6 +60,16 @@ namespace BH.UI
             _hoveredOverAnchoredPosition3D = serializedObject.FindProperty("_hoveredOverAnchoredPosition3D");
             _pressedDownAnchoredPosition3D = serializedObject.FindProperty("_pressedDownAnchoredPosition3D");
             _changeAnchoredPosition3DDuration = serializedObject.FindProperty("_changeAnchoredPosition3DDuration");
+
+            _playOnButtonDown = serializedObject.FindProperty("_playOnButtonDown");
+            _playOnButtonUp = serializedObject.FindProperty("_playOnButtonUp");
+            _playOnButtonEnter = serializedObject.FindProperty("_playOnButtonEnter");
+            _playOnButtonExit = serializedObject.FindProperty("_playOnButtonExit");
+
+            _onButtonDown = serializedObject.FindProperty("_onButtonDown");
+            _onButtonUp = serializedObject.FindProperty("_onButtonUp");
+            _onButtonEnter = serializedObject.FindProperty("_onButtonEnter");
+            _onButtonExit = serializedObject.FindProperty("_onButtonExit");
         }
 
         public override void OnInspectorGUI()
@@ -74,14 +96,36 @@ namespace BH.UI
                 EditorGUI.indentLevel--;
             }
 
-            _foldout.AnchoredPosition3D = EditorGUILayout.Foldout(_foldout.AnchoredPosition3D, "Local Position");
-            if (_foldout.AnchoredPosition3D)
+            _foldout.anchoredPosition3D = EditorGUILayout.Foldout(_foldout.anchoredPosition3D, "Anchored Position");
+            if (_foldout.anchoredPosition3D)
             {
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(_idleAnchoredPosition3D);
                 EditorGUILayout.PropertyField(_hoveredOverAnchoredPosition3D);
                 EditorGUILayout.PropertyField(_pressedDownAnchoredPosition3D);
                 EditorGUILayout.PropertyField(_changeAnchoredPosition3DDuration);
+                EditorGUI.indentLevel--;
+            }
+
+            _foldout.soundEffects = EditorGUILayout.Foldout(_foldout.soundEffects, "Sound Effects");
+            if (_foldout.soundEffects)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(_playOnButtonDown);
+                EditorGUILayout.PropertyField(_playOnButtonUp);
+                EditorGUILayout.PropertyField(_playOnButtonEnter);
+                EditorGUILayout.PropertyField(_playOnButtonExit);
+                EditorGUI.indentLevel--;
+            }
+
+            _foldout.events = EditorGUILayout.Foldout(_foldout.events, "Events");
+            if (_foldout.events)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(_onButtonDown);
+                EditorGUILayout.PropertyField(_onButtonUp);
+                EditorGUILayout.PropertyField(_onButtonEnter);
+                EditorGUILayout.PropertyField(_onButtonExit);
                 EditorGUI.indentLevel--;
             }
 

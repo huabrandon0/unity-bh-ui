@@ -275,8 +275,6 @@ namespace BH.UI
                 _buttonAnimator.SetScale(_idleScale);
                 _buttonAnimator.SetAnchoredPosition3D(_idleAnchoredPosition3D);
             }
-            else
-                Debug.LogError("UIImageAnimator component not found.");
 
             _changeColorDuration = Mathf.Max(_changeColorDuration, 0f);
             _changeScaleDuration = Mathf.Max(_changeScaleDuration, 0f);
