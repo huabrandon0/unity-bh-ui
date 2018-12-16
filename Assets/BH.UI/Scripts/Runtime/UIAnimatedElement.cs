@@ -16,7 +16,7 @@ namespace BH.UI
         [SerializeField] protected float _exitDelay = 0f;
         protected bool _isAnimating = false;
         
-        [SerializeField] protected IUIElementAnimator _elementAnimator;
+        [SerializeField] protected IUIElementAnimator _targetElementAnimator;
 
         public void Enter()
         {
@@ -25,15 +25,15 @@ namespace BH.UI
 
         IEnumerator Enter(float duration, float delay)
         {
-            if (_isAnimating || _elementAnimator == null)
+            if (_isAnimating || _targetElementAnimator == null)
                 yield break;
 
             _isAnimating = true;
-            _elementAnimator.SetAlpha(_enterFromAlpha);
-            _elementAnimator.SetAnchoredPosition3D(_enterFrom);
+            _targetElementAnimator.SetAlpha(_enterFromAlpha);
+            _targetElementAnimator.SetAnchoredPosition3D(_enterFrom);
             yield return new WaitForSeconds(delay);
-            _elementAnimator.ChangeAlpha(_enterToAlpha, duration);
-            _elementAnimator.ChangeAnchoredPosition3D(_enterTo, duration);
+            _targetElementAnimator.ChangeAlpha(_enterToAlpha, duration);
+            _targetElementAnimator.ChangeAnchoredPosition3D(_enterTo, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }
@@ -45,13 +45,13 @@ namespace BH.UI
 
         IEnumerator Exit(float duration, float delay)
         {
-            if (_isAnimating || _elementAnimator == null)
+            if (_isAnimating || _targetElementAnimator == null)
                 yield break;
 
             _isAnimating = true;
             yield return new WaitForSeconds(delay);
-            _elementAnimator.ChangeAlpha(0f, duration);
-            _elementAnimator.ChangeAnchoredPosition3D(_exitTo, duration);
+            _targetElementAnimator.ChangeAlpha(0f, duration);
+            _targetElementAnimator.ChangeAnchoredPosition3D(_exitTo, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
 namespace BH.UI
 {
@@ -52,7 +49,7 @@ namespace BH.UI
         SerializedProperty _onButtonUp;
         SerializedProperty _onButtonEnter;
         SerializedProperty _onButtonExit;
-
+        
         void OnEnable()
         {
             _idleColor = serializedObject.FindProperty("_idleColor");
@@ -159,7 +156,7 @@ namespace BH.UI
                 EditorGUILayout.PropertyField(_onButtonExit);
                 EditorGUI.indentLevel--;
             }
-
+            
             serializedObject.ApplyModifiedProperties();
         }
     }
