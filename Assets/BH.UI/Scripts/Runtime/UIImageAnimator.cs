@@ -36,9 +36,32 @@ namespace BH.UI
             _image.rectTransform.DOScale(endScale, duration);
         }
 
-        public void ChangeLocalPosition(Vector3 endPosition, float duration)
+        public void ChangeAnchoredPosition3D(Vector3 endPosition, float duration)
         {
-            _image.rectTransform.DOLocalMove(endPosition, duration);
+            _image.rectTransform.DOAnchorPos3D(endPosition, duration);
+        }
+
+        public void SetColor(Color color)
+        {
+            _image = GetComponent<Image>();
+            _image.color = color;
+        }
+
+        public void SetScale(Vector3 scale)
+        {
+            _image = GetComponent<Image>();
+            _image.rectTransform.localScale = scale;
+        }
+
+        public void SetScale(float scale)
+        {
+            SetScale(Vector3.one * scale);
+        }
+
+        public void SetAnchoredPosition3D(Vector3 position)
+        {
+            _image = GetComponent<Image>();
+            _image.rectTransform.anchoredPosition3D = position;
         }
     }
 }
