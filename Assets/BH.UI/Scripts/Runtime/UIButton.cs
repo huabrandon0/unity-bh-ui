@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace BH.UI
 {
     [AddComponentMenu("UI/BH.UI - UIButton")]
-    public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+    public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IUIElementAnimator
     {
         [MenuItem("GameObject/UI/BH.UI - UIButton")]
         static void CreateUIButton(MenuCommand menuCommand)
@@ -212,6 +212,15 @@ namespace BH.UI
         [SerializeField] UnityEvent _onButtonEnter;
         [SerializeField] UnityEvent _onButtonExit;
 
+        [SerializeField] Vector3 _enterFrom = Vector3.down * 100f;
+        [SerializeField] Vector3 _enterTo = Vector3.zero;
+        [SerializeField] float _enterDuration = 1f;
+        [SerializeField] float _enterDelay = 0f;
+        [SerializeField] Vector3 _exitTo = Vector3.down * 100f;
+        [SerializeField] float _exitDuration = 1f;
+        [SerializeField] float _exitDelay = 0f;
+        bool _isAnimating = false;
+
         [SerializeField] UIImageAnimator _buttonAnimator;
 
         void Awake()
@@ -224,22 +233,26 @@ namespace BH.UI
 
         public void OnPointerEnter(PointerEventData data)
         {
-            _currentState.OnPointerEnter();
+            if (!_isAnimating)
+                _currentState.OnPointerEnter();
         }
 
         public void OnPointerExit(PointerEventData data)
         {
-            _currentState.OnPointerExit();
+            if (!_isAnimating)
+                _currentState.OnPointerExit();
         }
 
         public void OnPointerDown(PointerEventData data)
         {
-            _currentState.OnPointerDown();
+            if (!_isAnimating)
+                _currentState.OnPointerDown();
         }
 
         public void OnPointerUp(PointerEventData data)
         {
-            _currentState.OnPointerUp();
+            if (!_isAnimating)
+                _currentState.OnPointerUp();
         }
         
         public void OnButtonDownInvoke()
@@ -266,6 +279,44 @@ namespace BH.UI
                 _onButtonExit.Invoke();
         }
 
+        public void Enter()
+        {
+            StartCoroutine(Enter(_enterDuration, _enterDelay));
+        }
+
+        IEnumerator Enter(float duration, float delay)
+        {
+            if (_isAnimating)
+                yield break;
+            
+            _isAnimating = true;
+            _buttonAnimator.SetAlpha(0f);
+            _buttonAnimator.SetAnchoredPosition3D(_enterFrom);
+            yield return new WaitForSeconds(delay);
+            _buttonAnimator.ChangeAlpha(_idleColor.a, duration);
+            _buttonAnimator.ChangeAnchoredPosition3D(_enterTo, duration);
+            yield return new WaitForSeconds(duration);
+            _isAnimating = false;
+        }
+
+        public void Exit()
+        {
+            StartCoroutine(Exit(_exitDuration, _exitDelay));
+        }
+
+        IEnumerator Exit(float duration, float delay)
+        {
+            if (_isAnimating)
+                yield break;
+
+            _isAnimating = true;
+            yield return new WaitForSeconds(delay);
+            _buttonAnimator.ChangeAlpha(0f, duration);
+            _buttonAnimator.ChangeAnchoredPosition3D(_exitTo, duration);
+            yield return new WaitForSeconds(duration);
+            _isAnimating = false;
+        }
+
         void OnValidate()
         {
             _buttonAnimator = GetComponentInChildren<UIImageAnimator>();
@@ -279,6 +330,10 @@ namespace BH.UI
             _changeColorDuration = Mathf.Max(_changeColorDuration, 0f);
             _changeScaleDuration = Mathf.Max(_changeScaleDuration, 0f);
             _changeAnchoredPosition3DDuration = Mathf.Max(_changeAnchoredPosition3DDuration, 0f);
+            _enterDuration = Mathf.Max(_enterDuration, 0f);
+            _enterDelay = Mathf.Max(_enterDelay, 0f);
+            _exitDuration = Mathf.Max(_exitDuration, 0f);
+            _exitDelay = Mathf.Max(_exitDelay, 0f);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace BH.UI
             public static bool scale = true;
             public static bool anchoredPosition3D = true;
             public static bool soundEffects = true;
+            public static bool animations = true;
             public static bool events = true;
         }
 
@@ -38,7 +39,15 @@ namespace BH.UI
         SerializedProperty _playOnButtonUp;
         SerializedProperty _playOnButtonEnter;
         SerializedProperty _playOnButtonExit;
-        
+
+        SerializedProperty _enterFrom;
+        SerializedProperty _enterTo;
+        SerializedProperty _enterDuration;
+        SerializedProperty _enterDelay;
+        SerializedProperty _exitTo;
+        SerializedProperty _exitDuration;
+        SerializedProperty _exitDelay;
+
         SerializedProperty _onButtonDown;
         SerializedProperty _onButtonUp;
         SerializedProperty _onButtonEnter;
@@ -65,6 +74,14 @@ namespace BH.UI
             _playOnButtonUp = serializedObject.FindProperty("_playOnButtonUp");
             _playOnButtonEnter = serializedObject.FindProperty("_playOnButtonEnter");
             _playOnButtonExit = serializedObject.FindProperty("_playOnButtonExit");
+
+            _enterFrom = serializedObject.FindProperty("_enterFrom");
+            _enterTo = serializedObject.FindProperty("_enterTo");
+            _enterDuration = serializedObject.FindProperty("_enterDuration");
+            _enterDelay = serializedObject.FindProperty("_enterDelay");
+            _exitTo = serializedObject.FindProperty("_exitTo");
+            _exitDuration = serializedObject.FindProperty("_exitDuration");
+            _exitDelay = serializedObject.FindProperty("_exitDelay");
 
             _onButtonDown = serializedObject.FindProperty("_onButtonDown");
             _onButtonUp = serializedObject.FindProperty("_onButtonUp");
@@ -115,6 +132,20 @@ namespace BH.UI
                 EditorGUILayout.PropertyField(_playOnButtonUp);
                 EditorGUILayout.PropertyField(_playOnButtonEnter);
                 EditorGUILayout.PropertyField(_playOnButtonExit);
+                EditorGUI.indentLevel--;
+            }
+
+            _foldout.animations = EditorGUILayout.Foldout(_foldout.animations, "Enter/Exit Animations");
+            if (_foldout.animations)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(_enterFrom);
+                EditorGUILayout.PropertyField(_enterTo);
+                EditorGUILayout.PropertyField(_enterDuration);
+                EditorGUILayout.PropertyField(_enterDelay);
+                EditorGUILayout.PropertyField(_exitTo);
+                EditorGUILayout.PropertyField(_exitDuration);
+                EditorGUILayout.PropertyField(_exitDelay);
                 EditorGUI.indentLevel--;
             }
 
