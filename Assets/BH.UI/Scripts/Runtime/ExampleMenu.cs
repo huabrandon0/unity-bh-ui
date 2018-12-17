@@ -19,5 +19,11 @@ namespace BH.UI
         {
             _mainOverlay.Enter();
         }
+
+        void OnValidate()
+        {
+            if (!_mainOverlay)
+                _mainOverlay = GetComponentInChildren<UIAnimatedElementOverlay>();
+        }
     }
 }
