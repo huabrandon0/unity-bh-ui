@@ -46,9 +46,16 @@ namespace BH.UI
 
             Undo.RegisterCreatedObjectUndo(raycastImage, "Create " + raycastImage.name);
 
+            GameObject animatedRectTransform = new GameObject("AnimatedRectTransform");
+            animatedRectTransform.AddComponent<RectTransform>();
+            GameObjectUtility.SetParentAndAlign(animatedRectTransform, button);
+            buttonUIButton._buttonRectTransformAnimator = animatedRectTransform.AddComponent(typeof(UIRectTransformAnimator)) as UIRectTransformAnimator;
+
+            Undo.RegisterCreatedObjectUndo(animatedRectTransform, "Create " + animatedRectTransform.name);
+
             GameObject animatedImage = new GameObject("AnimatedImage");
             animatedImage.AddComponent<RectTransform>();
-            GameObjectUtility.SetParentAndAlign(animatedImage, button);
+            GameObjectUtility.SetParentAndAlign(animatedImage, animatedRectTransform);
             Image animatedImageImage = animatedImage.AddComponent(typeof(Image)) as Image;
             animatedImageImage.raycastTarget = false;
             buttonUIButton._buttonImageAnimator = animatedImage.AddComponent(typeof(UIImageAnimator)) as UIImageAnimator;

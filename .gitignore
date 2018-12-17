@@ -34,3 +34,10 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# DOTween Pro
+Assets/Demigiant/
+Assets/Resources/
+Assets/TextMesh Pro/
+Assets/Demigiant.meta
+Assets/Resources.meta
