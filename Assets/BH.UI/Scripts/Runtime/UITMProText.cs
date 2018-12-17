@@ -108,7 +108,7 @@ namespace BH.UI
             _isAnimating = true;
             yield return new WaitForSeconds(delay);
             _rectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._exitTo, duration);
-            _textAnimator.ChangeAlpha(0f, duration);
+            _textAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }

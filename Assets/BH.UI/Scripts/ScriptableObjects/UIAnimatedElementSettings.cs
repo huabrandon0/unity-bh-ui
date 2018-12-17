@@ -13,6 +13,7 @@ namespace BH.UI
         public float _enterToAlpha = 1f;
         public float _enterDuration = 1f;
         public Vector3 _exitTo = Vector3.down * 100f;
+        public float _exitToAlpha = 0f;
         public float _exitDuration = 1f;
 
         void OnValidate()
@@ -20,6 +21,7 @@ namespace BH.UI
             _enterFromAlpha = Mathf.Clamp(_enterFromAlpha, 0f, 1f);
             _enterToAlpha = Mathf.Clamp(_enterToAlpha, 0f, 1f);
             _enterDuration = Mathf.Max(_enterDuration, 0f);
+            _exitToAlpha = Mathf.Clamp(_exitToAlpha, 0f, 1f);
             _exitDuration = Mathf.Max(_exitDuration, 0f);
         }
     }

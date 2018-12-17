@@ -303,8 +303,8 @@ namespace BH.UI
             _isAnimating = true;
             yield return new WaitForSeconds(delay);
             _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._exitTo, duration);
-            _buttonImageAnimator.ChangeAlpha(0f, duration);
-            _buttonTextAnimator.ChangeAlpha(0f, duration);
+            _buttonImageAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
+            _buttonTextAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }
