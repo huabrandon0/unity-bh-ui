@@ -109,10 +109,7 @@ namespace BH.UI
             {
                 _button._currentState = _button._hoveredOverState;
                 _button.OnButtonEnterInvoke();
-                _button._buttonImageAnimator.ChangeColor(_button._hoveredOverColor, _button._changeColorDuration);
-                _button._buttonImageAnimator.ChangeScale(_button._hoveredOverScale, _button._changeScaleDuration);
-                _button._buttonRectTransformAnimator.ChangeAnchoredPosition3D(_button._hoveredOverAnchoredPosition3D, _button._changeAnchoredPosition3DDuration);
-                UIAudioManager.Instance.Play(_button._playOnButtonEnter);
+                _button.AnimateHoveredOver();
             }
 
             public void OnPointerExit() {}
@@ -121,10 +118,7 @@ namespace BH.UI
             {
                 _button._currentState = _button._pressedDownState;
                 _button.OnButtonDownInvoke();
-                _button._buttonImageAnimator.ChangeColor(_button._pressedDownColor, _button._changeColorDuration);
-                _button._buttonImageAnimator.ChangeScale(_button._pressedDownScale, _button._changeScaleDuration);
-                _button._buttonRectTransformAnimator.ChangeAnchoredPosition3D(_button._pressedDownAnchoredPosition3D, _button._changeAnchoredPosition3DDuration);
-                UIAudioManager.Instance.Play(_button._playOnButtonDown);
+                _button.AnimatePressedDown();
             }
 
             public void OnPointerUp() {}
@@ -145,20 +139,14 @@ namespace BH.UI
             {
                 _button._currentState = _button._idleState;    
                 _button.OnButtonExitInvoke();
-                _button._buttonImageAnimator.ChangeColor(_button._idleColor, _button._changeColorDuration);
-                _button._buttonImageAnimator.ChangeScale(_button._idleScale, _button._changeScaleDuration);
-                _button._buttonRectTransformAnimator.ChangeAnchoredPosition3D(_button._idleAnchoredPosition3D, _button._changeAnchoredPosition3DDuration);
-                UIAudioManager.Instance.Play(_button._playOnButtonExit);
+                _button.AnimateIdle();
             }
 
             public void OnPointerDown()
             {
                 _button._currentState = _button._pressedDownState;
                 _button.OnButtonDownInvoke();
-                _button._buttonImageAnimator.ChangeColor(_button._pressedDownColor, _button._changeColorDuration);
-                _button._buttonImageAnimator.ChangeScale(_button._pressedDownScale, _button._changeScaleDuration);
-                _button._buttonRectTransformAnimator.ChangeAnchoredPosition3D(_button._pressedDownAnchoredPosition3D, _button._changeAnchoredPosition3DDuration);
-                UIAudioManager.Instance.Play(_button._playOnButtonDown);
+                _button.AnimatePressedDown();
             }
 
             public void OnPointerUp() {}
@@ -177,12 +165,9 @@ namespace BH.UI
 
             public void OnPointerExit()
             {
-                _button._currentState = _button._idleState;    
+                _button._currentState = _button._idleState;
                 _button.OnButtonExitInvoke();
-                _button._buttonImageAnimator.ChangeColor(_button._idleColor, _button._changeColorDuration);
-                _button._buttonImageAnimator.ChangeScale(_button._idleScale, _button._changeScaleDuration);
-                _button._buttonRectTransformAnimator.ChangeAnchoredPosition3D(_button._idleAnchoredPosition3D, _button._changeAnchoredPosition3DDuration);
-                UIAudioManager.Instance.Play(_button._playOnButtonExit);
+                _button.AnimateIdle();
             }
 
             public void OnPointerDown() {}
@@ -191,10 +176,7 @@ namespace BH.UI
             {
                 _button._currentState = _button._hoveredOverState;
                 _button.OnButtonUpInvoke();
-                _button._buttonImageAnimator.ChangeColor(_button._hoveredOverColor, _button._changeColorDuration);
-                _button._buttonImageAnimator.ChangeScale(_button._hoveredOverScale, _button._changeScaleDuration);
-                _button._buttonRectTransformAnimator.ChangeAnchoredPosition3D(_button._hoveredOverAnchoredPosition3D, _button._changeAnchoredPosition3DDuration);
-                UIAudioManager.Instance.Play(_button._playOnButtonUp);
+                _button.AnimateHoveredOver();
             }
         }
 
@@ -203,25 +185,10 @@ namespace BH.UI
         IButtonState _hoveredOverState;
         IButtonState _pressedDownState;
 
-        [SerializeField] Color _idleColor = Color.white;
-        [SerializeField] Color _hoveredOverColor = Color.gray;
-        [SerializeField] Color _pressedDownColor = Color.black;
-        [SerializeField] float _changeColorDuration = 0.1f;
-
-        [SerializeField] Vector3 _idleScale = Vector3.one;
-        [SerializeField] Vector3 _hoveredOverScale = Vector3.one * 1.1f;
-        [SerializeField] Vector3 _pressedDownScale = Vector3.one * 0.9f;
-        [SerializeField] float _changeScaleDuration = 0.1f;
-
-        [SerializeField] Vector3 _idleAnchoredPosition3D = Vector3.zero;
-        [SerializeField] Vector3 _hoveredOverAnchoredPosition3D = Vector3.zero;
-        [SerializeField] Vector3 _pressedDownAnchoredPosition3D = Vector3.zero;
-        [SerializeField] float _changeAnchoredPosition3DDuration = 0.1f;
-
-        [SerializeField] AudioClip _playOnButtonDown;
-        [SerializeField] AudioClip _playOnButtonUp;
-        [SerializeField] AudioClip _playOnButtonEnter;
-        [SerializeField] AudioClip _playOnButtonExit;
+        [SerializeField] UIButtonRectTransformSettings _buttonRectTransformSettings;
+        [SerializeField] UIButtonImageSettings _buttonImageSettings;
+        [SerializeField] UIButtonTextSettings _buttonTextSettings;
+        [SerializeField] UIButtonSoundEffects _buttonSoundEffects;
 
         [SerializeField] UnityEvent _onButtonDown;
         [SerializeField] UnityEvent _onButtonUp;
@@ -275,31 +242,35 @@ namespace BH.UI
         
         public void OnButtonDownInvoke()
         {
+            UIAudioManager.Instance.Play(_buttonSoundEffects._playOnButtonDown);
             if (_onButtonDown != null)
                 _onButtonDown.Invoke();
         }
 
         public void OnButtonUpInvoke()
         {
+            UIAudioManager.Instance.Play(_buttonSoundEffects._playOnButtonUp);
             if (_onButtonUp != null)
                 _onButtonUp.Invoke();
         }
 
         public void OnButtonEnterInvoke()
         {
+            UIAudioManager.Instance.Play(_buttonSoundEffects._playOnButtonEnter);
             if (_onButtonEnter != null)
                 _onButtonEnter.Invoke();
         }
 
         public void OnButtonExitInvoke()
         {
+            UIAudioManager.Instance.Play(_buttonSoundEffects._playOnButtonExit);
             if (_onButtonExit != null)
                 _onButtonExit.Invoke();
         }
 
         public override void Enter()
         {
-            StartCoroutine(Enter(_enterDuration, _enterDelay));
+            StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
         }
 
         IEnumerator Enter(float duration, float delay)
@@ -308,20 +279,20 @@ namespace BH.UI
                 yield break;
 
             _isAnimating = true;
-            _buttonRectTransformAnimator.SetAnchoredPosition3D(_enterFrom);
-            _buttonImageAnimator.SetAlpha(_enterFromAlpha);
-            _buttonTextAnimator.SetAlpha(_enterFromAlpha);
+            _buttonRectTransformAnimator.SetAnchoredPosition3D(_animatedElementSettings._enterFrom);
+            _buttonImageAnimator.SetAlpha(_animatedElementSettings._enterFromAlpha);
+            _buttonTextAnimator.SetAlpha(_animatedElementSettings._enterFromAlpha);
             yield return new WaitForSeconds(delay);
-            _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_enterTo, duration);
-            _buttonImageAnimator.ChangeAlpha(_enterToAlpha, duration);
-            _buttonTextAnimator.ChangeAlpha(_enterToAlpha, duration);
+            _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._enterTo, duration);
+            _buttonImageAnimator.ChangeAlpha(_animatedElementSettings._enterToAlpha, duration);
+            _buttonTextAnimator.ChangeAlpha(_animatedElementSettings._enterToAlpha, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }
 
         public override void Exit()
         {
-            StartCoroutine(Exit(_exitDuration, _exitDelay));
+            StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
         }
 
         IEnumerator Exit(float duration, float delay)
@@ -331,11 +302,47 @@ namespace BH.UI
 
             _isAnimating = true;
             yield return new WaitForSeconds(delay);
-            _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_exitTo, duration);
+            _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._exitTo, duration);
             _buttonImageAnimator.ChangeAlpha(0f, duration);
             _buttonTextAnimator.ChangeAlpha(0f, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
+        }
+
+        void AnimateIdle()
+        {
+            _buttonRectTransformAnimator.ChangeScale(_buttonRectTransformSettings._idleScale, _buttonRectTransformSettings._changeScaleDuration);
+            _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_buttonRectTransformSettings._idleAnchoredPosition3D, _buttonRectTransformSettings._changeAnchoredPosition3DDuration);
+            _buttonImageAnimator.ChangeColor(_buttonImageSettings._idleColor, _buttonImageSettings._changeColorDuration);
+            _buttonImageAnimator.ChangeScale(_buttonImageSettings._idleScale, _buttonImageSettings._changeScaleDuration);
+            _buttonImageAnimator.ChangeAnchoredPosition3D(_buttonImageSettings._idleAnchoredPosition3D, _buttonImageSettings._changeAnchoredPosition3DDuration);
+            _buttonTextAnimator.ChangeColor(_buttonTextSettings._idleColor, _buttonTextSettings._changeColorDuration);
+            _buttonTextAnimator.ChangeScale(_buttonTextSettings._idleScale, _buttonTextSettings._changeScaleDuration);
+            _buttonTextAnimator.ChangeAnchoredPosition3D(_buttonTextSettings._idleAnchoredPosition3D, _buttonTextSettings._changeAnchoredPosition3DDuration);
+        }
+
+        void AnimateHoveredOver()
+        {
+            _buttonRectTransformAnimator.ChangeScale(_buttonRectTransformSettings._hoveredOverScale, _buttonRectTransformSettings._changeScaleDuration);
+            _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_buttonRectTransformSettings._hoveredOverAnchoredPosition3D, _buttonRectTransformSettings._changeAnchoredPosition3DDuration);
+            _buttonImageAnimator.ChangeColor(_buttonImageSettings._hoveredOverColor, _buttonImageSettings._changeColorDuration);
+            _buttonImageAnimator.ChangeScale(_buttonImageSettings._hoveredOverScale, _buttonImageSettings._changeScaleDuration);
+            _buttonImageAnimator.ChangeAnchoredPosition3D(_buttonImageSettings._hoveredOverAnchoredPosition3D, _buttonImageSettings._changeAnchoredPosition3DDuration);
+            _buttonTextAnimator.ChangeColor(_buttonTextSettings._hoveredOverColor, _buttonTextSettings._changeColorDuration);
+            _buttonTextAnimator.ChangeScale(_buttonTextSettings._hoveredOverScale, _buttonTextSettings._changeScaleDuration);
+            _buttonTextAnimator.ChangeAnchoredPosition3D(_buttonTextSettings._hoveredOverAnchoredPosition3D, _buttonTextSettings._changeAnchoredPosition3DDuration);
+        }
+
+        void AnimatePressedDown()
+        {
+            _buttonRectTransformAnimator.ChangeScale(_buttonRectTransformSettings._pressedDownScale, _buttonRectTransformSettings._changeScaleDuration);
+            _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_buttonRectTransformSettings._pressedDownAnchoredPosition3D, _buttonRectTransformSettings._changeAnchoredPosition3DDuration);
+            _buttonImageAnimator.ChangeColor(_buttonImageSettings._pressedDownColor, _buttonImageSettings._changeColorDuration);
+            _buttonImageAnimator.ChangeScale(_buttonImageSettings._pressedDownScale, _buttonImageSettings._changeScaleDuration);
+            _buttonImageAnimator.ChangeAnchoredPosition3D(_buttonImageSettings._pressedDownAnchoredPosition3D, _buttonImageSettings._changeAnchoredPosition3DDuration);
+            _buttonTextAnimator.ChangeColor(_buttonTextSettings._pressedDownColor, _buttonTextSettings._changeColorDuration);
+            _buttonTextAnimator.ChangeScale(_buttonTextSettings._pressedDownScale, _buttonTextSettings._changeScaleDuration);
+            _buttonTextAnimator.ChangeAnchoredPosition3D(_buttonTextSettings._pressedDownAnchoredPosition3D, _buttonTextSettings._changeAnchoredPosition3DDuration);
         }
 
         void OnValidate()
@@ -345,16 +352,18 @@ namespace BH.UI
 
             if (_buttonRectTransformAnimator)
             {
-                _buttonRectTransformAnimator.SetAnchoredPosition3D(_idleAnchoredPosition3D);
+                _buttonRectTransformAnimator.SetScale(_buttonRectTransformSettings._idleScale);
+                _buttonRectTransformAnimator.SetAnchoredPosition3D(_buttonRectTransformSettings._idleAnchoredPosition3D);
             }
 
             if (!_buttonImageAnimator)
                 _buttonImageAnimator = GetComponentInChildren<UIImageAnimator>();
 
-            if (_buttonImageAnimator != null)
+            if (_buttonImageAnimator)
             {
-                _buttonImageAnimator.SetColor(_idleColor);
-                _buttonImageAnimator.SetScale(_idleScale);
+                _buttonImageAnimator.SetColor(_buttonImageSettings._idleColor);
+                _buttonImageAnimator.SetScale(_buttonImageSettings._idleScale);
+                _buttonImageAnimator.SetAnchoredPosition3D(_buttonImageSettings._idleAnchoredPosition3D);
             }
 
             if (!_buttonTextAnimator)
@@ -362,15 +371,12 @@ namespace BH.UI
 
             if (_buttonTextAnimator)
             {
-
+                _buttonTextAnimator.SetColor(_buttonTextSettings._idleColor);
+                _buttonTextAnimator.SetScale(_buttonTextSettings._idleScale);
+                _buttonTextAnimator.SetAnchoredPosition3D(_buttonTextSettings._idleAnchoredPosition3D);
             }
-
-            _changeColorDuration = Mathf.Max(_changeColorDuration, 0f);
-            _changeScaleDuration = Mathf.Max(_changeScaleDuration, 0f);
-            _changeAnchoredPosition3DDuration = Mathf.Max(_changeAnchoredPosition3DDuration, 0f);
-            _enterDuration = Mathf.Max(_enterDuration, 0f);
+            
             _enterDelay = Mathf.Max(_enterDelay, 0f);
-            _exitDuration = Mathf.Max(_exitDuration, 0f);
             _exitDelay = Mathf.Max(_exitDelay, 0f);
         }
     }

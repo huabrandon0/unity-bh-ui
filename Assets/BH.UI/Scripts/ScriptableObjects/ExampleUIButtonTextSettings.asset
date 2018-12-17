@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b286f500c0560e54d84c65b33c6103df, type: 3}
+  m_Name: ExampleUIButtonTextSettings
+  m_EditorClassIdentifier: 
+  _idleColor: {r: 0, g: 0, b: 0, a: 1}
+  _hoveredOverColor: {r: 1, g: 1, b: 1, a: 1}
+  _pressedDownColor: {r: 1, g: 1, b: 1, a: 1}
+  _changeColorDuration: 0.1
+  _idleScale: {x: 1, y: 1, z: 1}
+  _hoveredOverScale: {x: 1.1, y: 1.1, z: 1.1}
+  _pressedDownScale: {x: 0.9, y: 0.9, z: 0.9}
+  _changeScaleDuration: 0.1
+  _idleAnchoredPosition3D: {x: 0, y: 0, z: 0}
+  _hoveredOverAnchoredPosition3D: {x: 0, y: 0, z: 0}
+  _pressedDownAnchoredPosition3D: {x: 0, y: 0, z: 0}
+  _changeAnchoredPosition3DDuration: 0.1

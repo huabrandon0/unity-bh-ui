@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adafdf8b60308ce46af46960cc69a89f, type: 3}
+  m_Name: ExampleUIButtonSoundEffects
+  m_EditorClassIdentifier: 
+  _playOnButtonDown: {fileID: 8300000, guid: fe183cb87ec0fe94d8d2b352dfa175f6, type: 3}
+  _playOnButtonUp: {fileID: 8300000, guid: e7d8011e34c8c3440be20f9953e00cda, type: 3}
+  _playOnButtonEnter: {fileID: 8300000, guid: e7d8011e34c8c3440be20f9953e00cda, type: 3}
+  _playOnButtonExit: {fileID: 8300000, guid: fe183cb87ec0fe94d8d2b352dfa175f6, type: 3}

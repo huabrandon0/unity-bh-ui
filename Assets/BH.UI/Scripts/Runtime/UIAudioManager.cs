@@ -12,6 +12,7 @@ namespace BH.UI
         void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
+            _audioSource.volume = 0.2f;
         }
 
         public void Play(AudioClip audioClip)
