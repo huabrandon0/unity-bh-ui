@@ -52,6 +52,7 @@ namespace BH.UI
 
         SerializedProperty _buttonRectTransformAnimator;
         SerializedProperty _buttonImageAnimator;
+        SerializedProperty _buttonTextAnimator;
 
         void OnEnable()
         {
@@ -90,6 +91,7 @@ namespace BH.UI
 
             _buttonRectTransformAnimator = serializedObject.FindProperty("_buttonRectTransformAnimator");
             _buttonImageAnimator = serializedObject.FindProperty("_buttonImageAnimator");
+            _buttonTextAnimator = serializedObject.FindProperty("_buttonTextAnimator");
         }
 
         public override void OnInspectorGUI()
@@ -165,6 +167,7 @@ namespace BH.UI
 
             EditorGUILayout.PropertyField(_buttonRectTransformAnimator);
             EditorGUILayout.PropertyField(_buttonImageAnimator);
+            EditorGUILayout.PropertyField(_buttonTextAnimator);
 
             serializedObject.ApplyModifiedProperties();
         }

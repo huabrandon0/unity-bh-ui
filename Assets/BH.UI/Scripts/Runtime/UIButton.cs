@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEditor;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 namespace BH.UI
 {
@@ -61,6 +62,15 @@ namespace BH.UI
             buttonUIButton._buttonImageAnimator = animatedImage.AddComponent(typeof(UIImageAnimator)) as UIImageAnimator;
 
             Undo.RegisterCreatedObjectUndo(animatedImage, "Create " + animatedImage.name);
+
+            GameObject animatedText = new GameObject("AnimatedText");
+            animatedText.AddComponent<RectTransform>();
+            GameObjectUtility.SetParentAndAlign(animatedText, animatedRectTransform);
+            TextMeshProUGUI animatedTextText = animatedText.AddComponent(typeof(TextMeshProUGUI)) as TextMeshProUGUI;
+            animatedTextText.raycastTarget = false;
+            buttonUIButton._buttonTextAnimator = animatedText.AddComponent(typeof(UITMProTextAnimator)) as UITMProTextAnimator;
+
+            Undo.RegisterCreatedObjectUndo(animatedText, "Create " + animatedText.name);
 
             // Check if object is being created with left click or right click.
             GameObject contextObject = menuCommand.context as GameObject;
@@ -220,6 +230,7 @@ namespace BH.UI
 
         [SerializeField] protected UIRectTransformAnimator _buttonRectTransformAnimator;
         [SerializeField] protected UIImageAnimator _buttonImageAnimator;
+        [SerializeField] protected UITMProTextAnimator _buttonTextAnimator;
 
         void Awake()
         {
@@ -228,6 +239,9 @@ namespace BH.UI
 
             if (!_buttonImageAnimator)
                 _buttonImageAnimator = GetComponentInChildren<UIImageAnimator>();
+
+            if (!_buttonTextAnimator)
+                _buttonTextAnimator = GetComponentInChildren<UITMProTextAnimator>();
 
             _idleState = new IdleState(this);
             _hoveredOverState = new HoveredOverState(this);
@@ -294,11 +308,13 @@ namespace BH.UI
                 yield break;
 
             _isAnimating = true;
-            _buttonImageAnimator.SetAlpha(_enterFromAlpha);
             _buttonRectTransformAnimator.SetAnchoredPosition3D(_enterFrom);
+            _buttonImageAnimator.SetAlpha(_enterFromAlpha);
+            _buttonTextAnimator.SetAlpha(_enterFromAlpha);
             yield return new WaitForSeconds(delay);
-            _buttonImageAnimator.ChangeAlpha(_enterToAlpha, duration);
             _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_enterTo, duration);
+            _buttonImageAnimator.ChangeAlpha(_enterToAlpha, duration);
+            _buttonTextAnimator.ChangeAlpha(_enterToAlpha, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }
@@ -315,8 +331,9 @@ namespace BH.UI
 
             _isAnimating = true;
             yield return new WaitForSeconds(delay);
-            _buttonImageAnimator.ChangeAlpha(0f, duration);
             _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_exitTo, duration);
+            _buttonImageAnimator.ChangeAlpha(0f, duration);
+            _buttonTextAnimator.ChangeAlpha(0f, duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }
@@ -326,7 +343,7 @@ namespace BH.UI
             if (!_buttonRectTransformAnimator)
                 _buttonRectTransformAnimator = GetComponentInChildren<UIRectTransformAnimator>();
 
-            if (!_buttonRectTransformAnimator)
+            if (_buttonRectTransformAnimator)
             {
                 _buttonRectTransformAnimator.SetAnchoredPosition3D(_idleAnchoredPosition3D);
             }
@@ -338,6 +355,14 @@ namespace BH.UI
             {
                 _buttonImageAnimator.SetColor(_idleColor);
                 _buttonImageAnimator.SetScale(_idleScale);
+            }
+
+            if (!_buttonTextAnimator)
+                _buttonTextAnimator = GetComponentInChildren<UITMProTextAnimator>();
+
+            if (_buttonTextAnimator)
+            {
+
             }
 
             _changeColorDuration = Mathf.Max(_changeColorDuration, 0f);
