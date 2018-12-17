@@ -9,8 +9,9 @@ namespace BH.UI
     {
         AudioSource _audioSource;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _audioSource = GetComponent<AudioSource>();
             _audioSource.volume = 0.2f;
         }

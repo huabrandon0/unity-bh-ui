@@ -275,7 +275,7 @@ namespace BH.UI
 
         IEnumerator Enter(float duration, float delay)
         {
-            if (_isAnimating || _buttonImageAnimator == null)
+            if (_isAnimating || _buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
 
             _isAnimating = true;
@@ -297,7 +297,7 @@ namespace BH.UI
 
         IEnumerator Exit(float duration, float delay)
         {
-            if (_isAnimating || _buttonImageAnimator == null)
+            if (_isAnimating || _buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
 
             _isAnimating = true;

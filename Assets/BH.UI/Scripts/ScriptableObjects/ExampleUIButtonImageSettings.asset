@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _idleColor: {r: 1, g: 1, b: 1, a: 1}
   _hoveredOverColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  _pressedDownColor: {r: 0, g: 0, b: 0, a: 1}
-  _changeColorDuration: 0
+  _pressedDownColor: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
+  _changeColorDuration: 0.2
   _idleScale: {x: 1, y: 1, z: 1}
-  _hoveredOverScale: {x: 1.1, y: 1.1, z: 1.1}
+  _hoveredOverScale: {x: 1, y: 1, z: 1}
   _pressedDownScale: {x: 0.9, y: 0.9, z: 0.9}
-  _changeScaleDuration: 0
+  _changeScaleDuration: 0.2
   _idleAnchoredPosition3D: {x: 0, y: 0, z: 0}
   _hoveredOverAnchoredPosition3D: {x: 0, y: 0, z: 0}
   _pressedDownAnchoredPosition3D: {x: 0, y: 0, z: 0}
-  _changeAnchoredPosition3DDuration: 0
+  _changeAnchoredPosition3DDuration: 0.2
