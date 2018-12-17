@@ -49,7 +49,10 @@ namespace BH.UI
         SerializedProperty _onButtonUp;
         SerializedProperty _onButtonEnter;
         SerializedProperty _onButtonExit;
-        
+
+        SerializedProperty _buttonRectTransformAnimator;
+        SerializedProperty _buttonImageAnimator;
+
         void OnEnable()
         {
             _idleColor = serializedObject.FindProperty("_idleColor");
@@ -84,6 +87,9 @@ namespace BH.UI
             _onButtonUp = serializedObject.FindProperty("_onButtonUp");
             _onButtonEnter = serializedObject.FindProperty("_onButtonEnter");
             _onButtonExit = serializedObject.FindProperty("_onButtonExit");
+
+            _buttonRectTransformAnimator = serializedObject.FindProperty("_buttonRectTransformAnimator");
+            _buttonImageAnimator = serializedObject.FindProperty("_buttonImageAnimator");
         }
 
         public override void OnInspectorGUI()
@@ -156,7 +162,10 @@ namespace BH.UI
                 EditorGUILayout.PropertyField(_onButtonExit);
                 EditorGUI.indentLevel--;
             }
-            
+
+            EditorGUILayout.PropertyField(_buttonRectTransformAnimator);
+            EditorGUILayout.PropertyField(_buttonImageAnimator);
+
             serializedObject.ApplyModifiedProperties();
         }
     }
