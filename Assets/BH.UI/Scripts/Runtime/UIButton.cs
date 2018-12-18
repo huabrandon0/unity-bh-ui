@@ -284,8 +284,8 @@ namespace BH.UI
             _buttonTextAnimator.SetAlpha(_animatedElementSettings._enterFromAlpha);
             yield return new WaitForSeconds(delay);
             _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._enterTo, duration);
-            _buttonImageAnimator.ChangeAlpha(_animatedElementSettings._enterToAlpha, duration);
-            _buttonTextAnimator.ChangeAlpha(_animatedElementSettings._enterToAlpha, duration);
+            _buttonImageAnimator.ChangeAlpha(Mathf.Min(_animatedElementSettings._enterToAlpha, _buttonImageSettings._idleColor.a), duration);
+            _buttonTextAnimator.ChangeAlpha(Mathf.Min(_animatedElementSettings._enterToAlpha, _buttonTextSettings._idleColor.a), duration);
             yield return new WaitForSeconds(duration);
             _isAnimating = false;
         }
