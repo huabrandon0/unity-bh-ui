@@ -270,6 +270,7 @@ namespace BH.UI
 
         public override void Enter()
         {
+            _currentState = _idleState;
             StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
         }
 
@@ -292,6 +293,7 @@ namespace BH.UI
 
         public override void Exit()
         {
+            _currentState = _idleState;
             StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
         }
 
