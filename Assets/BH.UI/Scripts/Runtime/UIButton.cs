@@ -199,6 +199,8 @@ namespace BH.UI
         [SerializeField] protected UIImageAnimator _buttonImageAnimator;
         [SerializeField] protected UITMProTextAnimator _buttonTextAnimator;
 
+        Coroutine _animation;
+
         void Awake()
         {
             if (!_buttonRectTransformAnimator)
@@ -271,12 +273,16 @@ namespace BH.UI
         public override void Enter()
         {
             _currentState = _idleState;
-            StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
+
+            if (_animation != null)
+                StopCoroutine(_animation);
+
+            _animation = StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
         }
 
         IEnumerator Enter(float duration, float delay)
         {
-            if (_isAnimating || _buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
+            if (_buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
 
             _isAnimating = true;
@@ -294,12 +300,16 @@ namespace BH.UI
         public override void Exit()
         {
             _currentState = _idleState;
-            StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
+
+            if (_animation != null)
+                StopCoroutine(_animation);
+
+            _animation = StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
         }
 
         IEnumerator Exit(float duration, float delay)
         {
-            if (_isAnimating || _buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
+            if (_buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
 
             _isAnimating = true;

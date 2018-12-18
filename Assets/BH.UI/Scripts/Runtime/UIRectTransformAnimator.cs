@@ -8,6 +8,9 @@ namespace BH.UI
     {
         RectTransform _rectTransform;
 
+        Tweener _scaleTweener;
+        Tweener _anchoredPositionTweener;
+
         protected virtual void Awake()
         {
             if (!_rectTransform)
@@ -19,6 +22,9 @@ namespace BH.UI
             if (!_rectTransform)
                 _rectTransform = GetComponent<RectTransform>();
 
+            if (_scaleTweener != null)
+                _scaleTweener.Kill();
+
             _rectTransform.localScale = scale;
         }
 
@@ -27,13 +33,19 @@ namespace BH.UI
             if (!_rectTransform)
                 _rectTransform = GetComponent<RectTransform>();
 
-            _rectTransform.DOScale(endScale, duration);
+            if (_scaleTweener != null)
+                _scaleTweener.Kill();
+
+            _scaleTweener = _rectTransform.DOScale(endScale, duration);
         }
         
         public void SetAnchoredPosition3D(Vector3 position)
         {
             if (!_rectTransform)
                 _rectTransform = GetComponent<RectTransform>();
+
+            if (_anchoredPositionTweener != null)
+                _anchoredPositionTweener.Kill();
 
             _rectTransform.anchoredPosition3D = position;
         }
@@ -43,7 +55,10 @@ namespace BH.UI
             if (!_rectTransform)
                 _rectTransform = GetComponent<RectTransform>();
 
-            _rectTransform.DOAnchorPos3D(endPosition, duration);
+            if (_anchoredPositionTweener != null)
+                _anchoredPositionTweener.Kill();
+
+            _anchoredPositionTweener = _rectTransform.DOAnchorPos3D(endPosition, duration);
         }
     }
 }

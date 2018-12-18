@@ -9,6 +9,8 @@ namespace BH.UI
     {
         TextMeshProUGUI _text;
 
+        Tweener _colorTweener;
+
         protected override void Awake()
         {
             base.Awake();
@@ -21,6 +23,9 @@ namespace BH.UI
             if (!_text)
                 _text = GetComponent<TextMeshProUGUI>();
 
+            if (_colorTweener != null)
+                _colorTweener.Kill();
+
             _text.color = new Color(_text.color.r, _text.color.g, _text.color.b, alpha);
         }
 
@@ -29,13 +34,19 @@ namespace BH.UI
             if (!_text)
                 _text = GetComponent<TextMeshProUGUI>();
 
-            _text.DOFade(endAlpha, duration);
+            if (_colorTweener != null)
+                _colorTweener.Kill();
+
+            _colorTweener = _text.DOFade(endAlpha, duration);
         }
 
         public void SetColor(Color color)
         {
             if (!_text)
                 _text = GetComponent<TextMeshProUGUI>();
+
+            if (_colorTweener != null)
+                _colorTweener.Kill();
 
             _text.color = color;
         }
@@ -45,7 +56,10 @@ namespace BH.UI
             if (!_text)
                 _text = GetComponent<TextMeshProUGUI>();
 
-            _text.DOColor(endColor, duration);
+            if (_colorTweener != null)
+                _colorTweener.Kill();
+
+            _colorTweener = _text.DOColor(endColor, duration);
         }
     }
 }

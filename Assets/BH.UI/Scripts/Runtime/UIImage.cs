@@ -65,6 +65,8 @@ namespace BH.UI
         [SerializeField] protected UIRectTransformAnimator _rectTransformAnimator;
         [SerializeField] protected UIImageAnimator _imageAnimator;
 
+        Coroutine _animation;
+
         void Awake()
         {
             if (!_rectTransformAnimator)
@@ -76,12 +78,15 @@ namespace BH.UI
         
         public override void Enter()
         {
-            StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
+            if (_animation != null)
+                StopCoroutine(_animation);
+
+            _animation = StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
         }
 
         IEnumerator Enter(float duration, float delay)
         {
-            if (_isAnimating || _rectTransformAnimator == null || _imageAnimator == null)
+            if (_rectTransformAnimator == null || _imageAnimator == null)
                 yield break;
 
             _isAnimating = true;
@@ -96,12 +101,15 @@ namespace BH.UI
 
         public override void Exit()
         {
-            StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
+            if (_animation != null)
+                StopCoroutine(_animation);
+
+            _animation = StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
         }
 
         IEnumerator Exit(float duration, float delay)
         {
-            if (_isAnimating || _rectTransformAnimator == null || _imageAnimator == null)
+            if (_rectTransformAnimator == null || _imageAnimator == null)
                 yield break;
 
             _isAnimating = true;

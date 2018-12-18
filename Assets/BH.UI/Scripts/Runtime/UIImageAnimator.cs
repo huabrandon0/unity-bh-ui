@@ -8,6 +8,8 @@ namespace BH.UI
     public class UIImageAnimator : UIRectTransformAnimator
     {
         Image _image;
+        
+        Tweener _colorTweener;
 
         protected override void Awake()
         {
@@ -21,6 +23,9 @@ namespace BH.UI
             if (!_image)
                 _image = GetComponent<Image>();
 
+            if (_colorTweener != null)
+                _colorTweener.Kill();
+
             _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, alpha);
         }
 
@@ -29,13 +34,19 @@ namespace BH.UI
             if (!_image)
                 _image = GetComponent<Image>();
 
-            _image.DOFade(endAlpha, duration);
+            if (_colorTweener != null)
+                _colorTweener.Kill();
+
+            _colorTweener = _image.DOFade(endAlpha, duration);
         }
 
         public void SetColor(Color color)
         {
             if (!_image)
                 _image = GetComponent<Image>();
+
+            if (_colorTweener != null)
+                _colorTweener.Kill();
 
             _image.color = color;
         }
@@ -45,7 +56,10 @@ namespace BH.UI
             if (!_image)
                 _image = GetComponent<Image>();
 
-            _image.DOColor(endColor, duration);
+            if (_colorTweener != null)
+                _colorTweener.Kill();
+
+            _colorTweener = _image.DOColor(endColor, duration);
         }
     }
 }
