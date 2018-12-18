@@ -22,7 +22,18 @@ namespace BH.UI
         public void Enter()
         {
             foreach (UIAnimatedElement uiElementAnimator in _uiAnimatedElements)
-                uiElementAnimator.Enter();
+            {
+                switch (uiElementAnimator)
+                {
+                    case UIButton button:
+                        button.DisableRaycast();
+                        button.Enter(() => button.EnableRaycast());
+                        break;
+                    case UIAnimatedElement element:
+                        element.Enter();
+                        break;
+                }
+            }
         }
         
         public IEnumerator Enter(NoArgDelegate callback)
@@ -35,7 +46,18 @@ namespace BH.UI
         public void Exit()
         {
             foreach (UIAnimatedElement uiElementAnimator in _uiAnimatedElements)
-                uiElementAnimator.Exit();
+            {
+                switch (uiElementAnimator)
+                {
+                    case UIButton button:
+                        button.DisableRaycast();
+                        button.Exit(() => button.EnableRaycast());
+                        break;
+                    case UIAnimatedElement element:
+                        element.Exit();
+                        break;
+                }
+            }
         }
 
         public IEnumerator Exit(NoArgDelegate callback)

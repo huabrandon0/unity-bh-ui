@@ -5,6 +5,8 @@ using UnityEditor;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BH.UI
 {
@@ -199,18 +201,13 @@ namespace BH.UI
         [SerializeField] protected UIImageAnimator _buttonImageAnimator;
         [SerializeField] protected UITMProTextAnimator _buttonTextAnimator;
 
+        [SerializeField] protected Image _buttonRaycastImage;
+
         Coroutine _animation;
 
         void Awake()
         {
-            if (!_buttonRectTransformAnimator)
-                _buttonRectTransformAnimator = GetComponentInChildren<UIRectTransformAnimator>();
-
-            if (!_buttonImageAnimator)
-                _buttonImageAnimator = GetComponentInChildren<UIImageAnimator>();
-
-            if (!_buttonTextAnimator)
-                _buttonTextAnimator = GetComponentInChildren<UITMProTextAnimator>();
+            OnValidate();
 
             _idleState = new IdleState(this);
             _hoveredOverState = new HoveredOverState(this);
@@ -220,26 +217,22 @@ namespace BH.UI
 
         public void OnPointerEnter(PointerEventData data)
         {
-            if (_animation == null)
-                _currentState.OnPointerEnter();
+            _currentState.OnPointerEnter();
         }
 
         public void OnPointerExit(PointerEventData data)
         {
-            if (_animation == null)
-                _currentState.OnPointerExit();
+            _currentState.OnPointerExit();
         }
 
         public void OnPointerDown(PointerEventData data)
         {
-            if (_animation == null)
-                _currentState.OnPointerDown();
+            _currentState.OnPointerDown();
         }
 
         public void OnPointerUp(PointerEventData data)
         {
-            if (_animation == null)
-                _currentState.OnPointerUp();
+            _currentState.OnPointerUp();
         }
         
         public void OnButtonDownInvoke()
@@ -270,17 +263,17 @@ namespace BH.UI
                 _onButtonExit.Invoke();
         }
 
-        public override void Enter()
+        public override void Enter(NoArgDelegate callback = null)
         {
             _currentState = _idleState;
 
             if (_animation != null)
                 StopCoroutine(_animation);
 
-            _animation = StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
+            _animation = StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay, callback));
         }
 
-        IEnumerator Enter(float duration, float delay)
+        IEnumerator Enter(float duration, float delay, NoArgDelegate callback = null)
         {
             if (_buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
@@ -294,19 +287,22 @@ namespace BH.UI
             _buttonTextAnimator.ChangeAlpha(Mathf.Min(_animatedElementSettings._enterToAlpha, _buttonTextSettings._idleColor.a), duration);
             yield return new WaitForSeconds(duration);
             _animation = null;
+
+            if (callback != null)
+                callback.Invoke();
         }
 
-        public override void Exit()
+        public override void Exit(NoArgDelegate callback = null)
         {
             _currentState = _idleState;
 
             if (_animation != null)
                 StopCoroutine(_animation);
 
-            _animation = StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
+            _animation = StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay, callback));
         }
 
-        IEnumerator Exit(float duration, float delay)
+        IEnumerator Exit(float duration, float delay, NoArgDelegate callback = null)
         {
             if (_buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
@@ -317,6 +313,19 @@ namespace BH.UI
             _buttonTextAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
             yield return new WaitForSeconds(duration);
             _animation = null;
+
+            if (callback != null)
+                callback.Invoke();
+        }
+
+        public void EnableRaycast()
+        {
+            _buttonRaycastImage.enabled = true;
+        }
+
+        public void DisableRaycast()
+        {
+            _buttonRaycastImage.enabled = false;
         }
 
         void AnimateIdle()
@@ -386,6 +395,12 @@ namespace BH.UI
                 _buttonTextAnimator.SetAnchoredPosition3D(_buttonTextSettings._idleAnchoredPosition3D);
             }
             
+            if (!_buttonRaycastImage || !_buttonRaycastImage.raycastTarget)
+            {
+                List<Image> images = GetComponentsInChildren<Image>().ToList();
+                _buttonRaycastImage = images.First(i => i.raycastTarget);
+            }
+
             _enterDelay = Mathf.Max(_enterDelay, 0f);
             _exitDelay = Mathf.Max(_exitDelay, 0f);
         }

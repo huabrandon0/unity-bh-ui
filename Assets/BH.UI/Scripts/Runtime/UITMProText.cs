@@ -70,22 +70,18 @@ namespace BH.UI
 
         void Awake()
         {
-            if (!_rectTransformAnimator)
-                _rectTransformAnimator = GetComponentInChildren<UIRectTransformAnimator>();
-
-            if (!_textAnimator)
-                _textAnimator = GetComponentInChildren<UITMProTextAnimator>();
+            OnValidate();
         }
 
-        public override void Enter()
+        public override void Enter(NoArgDelegate callback = null)
         {
             if (_animation != null)
                 StopCoroutine(_animation);
 
-            _animation = StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay));
+            _animation = StartCoroutine(Enter(_animatedElementSettings._enterDuration, _enterDelay, callback));
         }
 
-        IEnumerator Enter(float duration, float delay)
+        IEnumerator Enter(float duration, float delay, NoArgDelegate callback = null)
         {
             if (_rectTransformAnimator == null || _textAnimator == null)
                 yield break;
@@ -97,17 +93,20 @@ namespace BH.UI
             _textAnimator.ChangeAlpha(_animatedElementSettings._enterToAlpha, duration);
             yield return new WaitForSeconds(duration);
             _animation = null;
+
+            if (callback != null)
+                callback.Invoke();
         }
 
-        public override void Exit()
+        public override void Exit(NoArgDelegate callback = null)
         {
             if (_animation != null)
                 StopCoroutine(_animation);
 
-            _animation = StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay));
+            _animation = StartCoroutine(Exit(_animatedElementSettings._exitDuration, _exitDelay, callback));
         }
 
-        IEnumerator Exit(float duration, float delay)
+        IEnumerator Exit(float duration, float delay, NoArgDelegate callback = null)
         {
             if (_rectTransformAnimator == null || _textAnimator == null)
                 yield break;
@@ -117,6 +116,9 @@ namespace BH.UI
             _textAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
             yield return new WaitForSeconds(duration);
             _animation = null;
+            
+            if (callback != null)
+                callback.Invoke();
         }
 
         void OnValidate()

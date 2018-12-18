@@ -25,7 +25,7 @@ namespace BH.UI
             private set { }
         }
 
-        public abstract void Enter();
-        public abstract void Exit();
+        public abstract void Enter(NoArgDelegate callback = null);
+        public abstract void Exit(NoArgDelegate callback = null);
     }
 }

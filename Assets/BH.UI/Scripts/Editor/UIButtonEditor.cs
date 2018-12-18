@@ -35,6 +35,8 @@ namespace BH.UI
         SerializedProperty _buttonImageAnimator;
         SerializedProperty _buttonTextAnimator;
 
+        SerializedProperty _buttonRaycastImage;
+
         void OnEnable()
         {
             _buttonRectTransformSettings = serializedObject.FindProperty("_buttonRectTransformSettings");
@@ -54,6 +56,8 @@ namespace BH.UI
             _buttonRectTransformAnimator = serializedObject.FindProperty("_buttonRectTransformAnimator");
             _buttonImageAnimator = serializedObject.FindProperty("_buttonImageAnimator");
             _buttonTextAnimator = serializedObject.FindProperty("_buttonTextAnimator");
+
+            _buttonRaycastImage = serializedObject.FindProperty("_buttonRaycastImage");
         }
 
         public override void OnInspectorGUI()
@@ -87,6 +91,7 @@ namespace BH.UI
             EditorGUILayout.PropertyField(_buttonRectTransformAnimator);
             EditorGUILayout.PropertyField(_buttonImageAnimator);
             EditorGUILayout.PropertyField(_buttonTextAnimator);
+            EditorGUILayout.PropertyField(_buttonRaycastImage);
 
             serializedObject.ApplyModifiedProperties();
         }
