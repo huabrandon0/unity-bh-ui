@@ -114,7 +114,8 @@ namespace BH.UI
                         break;
                 }
 
-                callback.Invoke();
+                if (callback != null)
+                    callback.Invoke();
             }
 
             if (instance._animatedElementOverlay)
