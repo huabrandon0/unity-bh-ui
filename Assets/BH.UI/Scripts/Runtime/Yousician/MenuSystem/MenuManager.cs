@@ -75,7 +75,7 @@ namespace BH.UI
 
             throw new MissingReferenceException("Prefab not found for type " + typeof(T));
         }
-	
+	    
 	    public void CloseMenu(Menu menu, NoArgDelegate callback = null)
 	    {
 		    if (menuStack.Count == 0)
