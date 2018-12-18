@@ -12,8 +12,6 @@ namespace BH.UI
         float _enterDuration = 0f;
         float _exitDuration = 0f;
 
-        public delegate void NoArgDelegate();
-
         void Awake()
         {
             _uiAnimatedElements = new List<UIAnimatedElement>(GetComponentsInChildren<UIAnimatedElement>());
