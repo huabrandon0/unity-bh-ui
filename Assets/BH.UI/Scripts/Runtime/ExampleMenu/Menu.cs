@@ -3,14 +3,14 @@
 namespace BH.UI
 {
     [RequireComponent(typeof(Canvas))]
-    public class Menu : MonoBehaviour
+    public abstract class Menu : MonoBehaviour
     {
         Canvas _canvas;
         [SerializeField] protected UIAnimatedElementOverlay _mainOverlay;
         
         public delegate void NoArgDelegate();
 
-        void Awake()
+        protected virtual void Awake()
         {
             if (!_canvas)
                 _canvas = GetComponent<Canvas>();
@@ -40,7 +40,7 @@ namespace BH.UI
             StartCoroutine(_mainOverlay.Exit(() => { _canvas.enabled = false; callback.Invoke(); }));
         }
 
-        void OnValidate()
+        protected virtual void OnValidate()
         {
             if (!_canvas)
                 _canvas = GetComponent<Canvas>();
