@@ -220,25 +220,25 @@ namespace BH.UI
 
         public void OnPointerEnter(PointerEventData data)
         {
-            if (!_isAnimating)
+            if (_animation == null)
                 _currentState.OnPointerEnter();
         }
 
         public void OnPointerExit(PointerEventData data)
         {
-            if (!_isAnimating)
+            if (_animation == null)
                 _currentState.OnPointerExit();
         }
 
         public void OnPointerDown(PointerEventData data)
         {
-            if (!_isAnimating)
+            if (_animation == null)
                 _currentState.OnPointerDown();
         }
 
         public void OnPointerUp(PointerEventData data)
         {
-            if (!_isAnimating)
+            if (_animation == null)
                 _currentState.OnPointerUp();
         }
         
@@ -284,8 +284,7 @@ namespace BH.UI
         {
             if (_buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
-
-            _isAnimating = true;
+            
             _buttonRectTransformAnimator.SetAnchoredPosition3D(_animatedElementSettings._enterFrom);
             _buttonImageAnimator.SetAlpha(_animatedElementSettings._enterFromAlpha);
             _buttonTextAnimator.SetAlpha(_animatedElementSettings._enterFromAlpha);
@@ -294,7 +293,7 @@ namespace BH.UI
             _buttonImageAnimator.ChangeAlpha(Mathf.Min(_animatedElementSettings._enterToAlpha, _buttonImageSettings._idleColor.a), duration);
             _buttonTextAnimator.ChangeAlpha(Mathf.Min(_animatedElementSettings._enterToAlpha, _buttonTextSettings._idleColor.a), duration);
             yield return new WaitForSeconds(duration);
-            _isAnimating = false;
+            _animation = null;
         }
 
         public override void Exit()
@@ -311,14 +310,13 @@ namespace BH.UI
         {
             if (_buttonRectTransformAnimator == null || _buttonImageAnimator == null || _buttonTextAnimator == null)
                 yield break;
-
-            _isAnimating = true;
+            
             yield return new WaitForSeconds(delay);
             _buttonRectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._exitTo, duration);
             _buttonImageAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
             _buttonTextAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
             yield return new WaitForSeconds(duration);
-            _isAnimating = false;
+            _animation = null;
         }
 
         void AnimateIdle()

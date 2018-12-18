@@ -89,15 +89,14 @@ namespace BH.UI
         {
             if (_rectTransformAnimator == null || _textAnimator == null)
                 yield break;
-
-            _isAnimating = true;
+            
             _rectTransformAnimator.SetAnchoredPosition3D(_animatedElementSettings._enterFrom);
             _textAnimator.SetAlpha(_animatedElementSettings._enterFromAlpha);
             yield return new WaitForSeconds(delay);
             _rectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._enterTo, duration);
             _textAnimator.ChangeAlpha(_animatedElementSettings._enterToAlpha, duration);
             yield return new WaitForSeconds(duration);
-            _isAnimating = false;
+            _animation = null;
         }
 
         public override void Exit()
@@ -112,13 +111,12 @@ namespace BH.UI
         {
             if (_rectTransformAnimator == null || _textAnimator == null)
                 yield break;
-
-            _isAnimating = true;
+            
             yield return new WaitForSeconds(delay);
             _rectTransformAnimator.ChangeAnchoredPosition3D(_animatedElementSettings._exitTo, duration);
             _textAnimator.ChangeAlpha(_animatedElementSettings._exitToAlpha, duration);
             yield return new WaitForSeconds(duration);
-            _isAnimating = false;
+            _animation = null;
         }
 
         void OnValidate()

@@ -25,8 +25,6 @@ namespace BH.UI
             private set { }
         }
 
-        protected bool _isAnimating = false;
-
         public abstract void Enter();
         public abstract void Exit();
     }
