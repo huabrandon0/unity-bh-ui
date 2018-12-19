@@ -9,61 +9,8 @@ namespace BH.UI
     [AddComponentMenu("UI/BH.UI - UIImage")]
     public class UIImage : UIAnimatedElement
     {
-        [MenuItem("GameObject/UI/BH.UI - UIImage")]
-        static void CreateUIImage(MenuCommand menuCommand)
-        {
-            // Check if there is a Canvas in the scene.
-            Canvas canvas = FindObjectOfType<Canvas>();
-            if (canvas == null)
-            {
-                // Create new Canvas since none exists in the scene.
-                GameObject canvasObject = new GameObject("Canvas");
-                canvas = canvasObject.AddComponent<Canvas>();
-                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-
-                // Add a Canvas Scaler Component.
-                canvas.gameObject.AddComponent<CanvasScaler>();
-
-                // Add a Graphic Raycaster Component.
-                canvas.gameObject.AddComponent<GraphicRaycaster>();
-
-                Undo.RegisterCreatedObjectUndo(canvasObject, "Create " + canvasObject.name);
-            }
-
-            GameObject image = new GameObject("BH.UI - UIImage");
-            image.AddComponent<RectTransform>();
-            Selection.activeObject = image;
-            UIImage imageUIImage = image.AddComponent(typeof(UIImage)) as UIImage;
-
-            Undo.RegisterCreatedObjectUndo(image, "Create " + image.name);
-
-            GameObject imageImage = new GameObject("AnimatedImage");
-            imageImage.AddComponent<RectTransform>();
-            GameObjectUtility.SetParentAndAlign(imageImage, image);
-            imageImage.AddComponent(typeof(Image));
-            imageUIImage._imageAnimator = imageImage.AddComponent(typeof(UIImageAnimator)) as UIImageAnimator;
-            imageUIImage._rectTransformAnimator = imageUIImage._imageAnimator;
-
-            Undo.RegisterCreatedObjectUndo(imageImage, "Create " + imageImage.name);
-
-            // Check if object is being created with left click or right click.
-            GameObject contextObject = menuCommand.context as GameObject;
-            if (contextObject == null)
-                GameObjectUtility.SetParentAndAlign(image, canvas.gameObject);
-            else
-                GameObjectUtility.SetParentAndAlign(image, contextObject);
-
-            // Check if an event system already exists in the scene.
-            if (!FindObjectOfType<EventSystem>())
-            {
-                GameObject eventObject = new GameObject("EventSystem", typeof(EventSystem));
-                eventObject.AddComponent<StandaloneInputModule>();
-                Undo.RegisterCreatedObjectUndo(eventObject, "Create " + eventObject.name);
-            }
-        }
-
-        [SerializeField] protected UIRectTransformAnimator _rectTransformAnimator;
-        [SerializeField] protected UIImageAnimator _imageAnimator;
+        public UIRectTransformAnimator _rectTransformAnimator;
+        public UIImageAnimator _imageAnimator;
 
         Coroutine _animation;
 
