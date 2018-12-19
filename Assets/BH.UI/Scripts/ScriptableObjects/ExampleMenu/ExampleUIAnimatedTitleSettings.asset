@@ -18,4 +18,5 @@ MonoBehaviour:
   _enterToAlpha: 1
   _enterDuration: 1
   _exitTo: {x: 0, y: 100, z: 0}
+  _exitToAlpha: 0
   _exitDuration: 1
