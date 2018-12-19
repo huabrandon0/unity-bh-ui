@@ -95,14 +95,14 @@ namespace BH.UI
 
         public void CloseTopMenu(NoArgDelegate callback = null)
         {
-            var instance = menuStack.Pop();
+            var topMenu = menuStack.Pop();
 
             void CloseTopMenuHelper()
             {
-                if (instance.DestroyWhenClosed)
-                    Destroy(instance.gameObject);
+                if (topMenu.DestroyWhenClosed)
+                    Destroy(topMenu.gameObject);
                 else
-                    instance.gameObject.SetActive(false);
+                    topMenu.gameObject.SetActive(false);
 
                 // Reactivate the top menu.
                 // If a reactivated menu is an overlay we need to activate the menu under it.
@@ -118,8 +118,8 @@ namespace BH.UI
                     callback.Invoke();
             }
 
-            if (instance._animatedElementOverlay)
-                instance._animatedElementOverlay.Exit(CloseTopMenuHelper);
+            if (topMenu._animatedElementOverlay)
+                topMenu._animatedElementOverlay.Exit(CloseTopMenuHelper);
             else
                 CloseTopMenuHelper();
         }
