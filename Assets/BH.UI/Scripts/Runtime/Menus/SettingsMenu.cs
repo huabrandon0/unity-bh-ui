@@ -8,7 +8,10 @@ namespace BH.UI
     {
         public void OnBackButtonPressed()
         {
-            Close(MainMenu.Show);
+            Hide(() =>
+            {
+                MainMenu.Show();
+            });
         }
     }
 }

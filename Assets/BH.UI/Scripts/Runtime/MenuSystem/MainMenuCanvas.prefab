@@ -661,6 +661,7 @@ MonoBehaviour:
   _buttonRectTransformAnimator: {fileID: 2075627493794265296}
   _buttonImageAnimator: {fileID: 2075627492784757999}
   _buttonTextAnimator: {fileID: 2075627493330839883}
+  _buttonRaycastImage: {fileID: 2075627493201016378}
 --- !u!1 &2075627492957626156
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,6 +758,7 @@ MonoBehaviour:
   _buttonRectTransformAnimator: {fileID: 2075627492967956265}
   _buttonImageAnimator: {fileID: 2075627494265489429}
   _buttonTextAnimator: {fileID: 2075627493829488530}
+  _buttonRaycastImage: {fileID: 2075627493799973190}
 --- !u!1 &2075627492967956267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,6 +1320,7 @@ MonoBehaviour:
   _buttonRectTransformAnimator: {fileID: 2075627493615479492}
   _buttonImageAnimator: {fileID: 2075627494191012364}
   _buttonTextAnimator: {fileID: 2075627492889886408}
+  _buttonRaycastImage: {fileID: 2075627493066550943}
 --- !u!1 &2075627493794265298
 GameObject:
   m_ObjectHideFlags: 0

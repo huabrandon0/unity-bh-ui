@@ -70,7 +70,7 @@ namespace BH.UI
                 {
                     case UIButton button:
                         button.DisableRaycast();
-                        button.Exit(() => button.EnableRaycast());
+                        button.Exit(); // Removed callback: () => button.EnableRaycast()
                         break;
                     case UIAnimatedElement element:
                         element.Exit();
