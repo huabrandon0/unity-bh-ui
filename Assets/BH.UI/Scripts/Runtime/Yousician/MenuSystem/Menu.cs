@@ -2,15 +2,13 @@
 
 namespace BH.UI
 {
-    public delegate void NoArgDelegate();
-
     public abstract class Menu<T> : Menu where T : Menu<T>
     {
         public static T Instance { get; private set; }
 
         protected virtual void Awake()
         {
-            Instance = (T)this;
+            Instance = this as T;
 
             if (!_animatedElementOverlay)
                 _animatedElementOverlay = GetComponentInChildren<UIAnimatedElementOverlay>();
