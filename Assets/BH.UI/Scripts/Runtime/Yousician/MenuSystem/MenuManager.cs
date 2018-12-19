@@ -32,37 +32,39 @@ namespace BH.UI
 		    Instantiate(prefab, transform);
 	    }
 
-	    public void OpenMenu(Menu instance)
+	    public void OpenMenu(Menu menu, NoArgDelegate callback = null)
         {
-            // De-activate top menu
+            // Deactivate top menu.
             if (menuStack.Count > 0)
             {
-			    if (instance.DisableMenusUnderneath)
+			    if (menu.DisableMenusUnderneath)
 			    {
-				    foreach (var menu in menuStack)
+				    foreach (var m in menuStack)
 				    {
-					    menu.gameObject.SetActive(false);
+                        m.gameObject.SetActive(false);
 
-					    if (menu.DisableMenusUnderneath)
+					    if (m.DisableMenusUnderneath)
 						    break;
 				    }
 			    }
 
-                var topCanvas = instance.GetComponent<Canvas>();
+                var topCanvas = menu.GetComponent<Canvas>();
                 var previousCanvas = menuStack.Peek().GetComponent<Canvas>();
 			    topCanvas.sortingOrder = previousCanvas.sortingOrder + 1;
             }
 
-            menuStack.Push(instance);
+            menuStack.Push(menu);
 
-            if (instance._animatedElementOverlay)
-                instance._animatedElementOverlay.Enter();
+            if (menu._animatedElementOverlay)
+                menu._animatedElementOverlay.Enter(callback);
+            else
+                callback.Invoke();
         }
 
         private T GetPrefab<T>() where T : Menu
         {
-            // Get prefab dynamically, based on public fields set from Unity
-		    // You can use private fields with SerializeField attribute too
+            // Get prefab dynamically, based on public fields set from Unity.
+		    // You can use private fields with SerializeField attribute too.
             var fields = this.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
             foreach (var field in fields)
             {

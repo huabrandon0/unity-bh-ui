@@ -19,14 +19,14 @@ namespace BH.UI
             Instance = null;
         }
 
-        protected static void Open()
+        protected static void Open(NoArgDelegate callback = null)
         {
             if (Instance == null)
                 MenuManager.Instance.CreateInstance<T>();
             else
                 Instance.gameObject.SetActive(true);
 
-            MenuManager.Instance.OpenMenu(Instance);
+            MenuManager.Instance.OpenMenu(Instance, callback);
         }
 
         protected static void Close(NoArgDelegate callback = null)
