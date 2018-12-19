@@ -146,8 +146,9 @@ namespace BH.UI
             GameObject raycastImage = new GameObject("RaycastImage");
             raycastImage.AddComponent<RectTransform>();
             GameObjectUtility.SetParentAndAlign(raycastImage, button);
-            Image raycastImageImage = raycastImage.AddComponent(typeof(Image)) as Image;
-            raycastImageImage.color = Color.clear;
+            buttonUIButton._buttonRaycastImage = raycastImage.AddComponent(typeof(Image)) as Image;
+            buttonUIButton._buttonRaycastImage.raycastTarget = true;
+            buttonUIButton._buttonRaycastImage.color = Color.clear;
 
             Undo.RegisterCreatedObjectUndo(raycastImage, "Create " + raycastImage.name);
 

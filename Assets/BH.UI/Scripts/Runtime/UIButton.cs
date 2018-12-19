@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace BH.UI
 {
@@ -122,8 +123,7 @@ namespace BH.UI
         public UIRectTransformAnimator _buttonRectTransformAnimator;
         public UIImageAnimator _buttonImageAnimator;
         public UITMProTextAnimator _buttonTextAnimator;
-
-        [SerializeField] protected Image _buttonRaycastImage;
+        public Image _buttonRaycastImage;
 
         Coroutine _animation;
 
@@ -291,7 +291,7 @@ namespace BH.UI
             if (!_buttonRectTransformAnimator)
                 _buttonRectTransformAnimator = GetComponentInChildren<UIRectTransformAnimator>();
 
-            if (_buttonRectTransformAnimator)
+            if (_buttonRectTransformAnimator && _buttonRectTransformSettings)
             {
                 _buttonRectTransformAnimator.SetScale(_buttonRectTransformSettings._idleScale);
                 _buttonRectTransformAnimator.SetAnchoredPosition3D(_buttonRectTransformSettings._idleAnchoredPosition3D);
@@ -300,7 +300,7 @@ namespace BH.UI
             if (!_buttonImageAnimator)
                 _buttonImageAnimator = GetComponentInChildren<UIImageAnimator>();
 
-            if (_buttonImageAnimator)
+            if (_buttonImageAnimator && _buttonImageSettings)
             {
                 _buttonImageAnimator.SetColor(_buttonImageSettings._idleColor);
                 _buttonImageAnimator.SetScale(_buttonImageSettings._idleScale);
@@ -308,9 +308,11 @@ namespace BH.UI
             }
 
             if (!_buttonTextAnimator)
+            {
                 _buttonTextAnimator = GetComponentInChildren<UITMProTextAnimator>();
+            }
 
-            if (_buttonTextAnimator)
+            if (_buttonTextAnimator && _buttonTextSettings)
             {
                 _buttonTextAnimator.SetColor(_buttonTextSettings._idleColor);
                 _buttonTextAnimator.SetScale(_buttonTextSettings._idleScale);
@@ -320,7 +322,11 @@ namespace BH.UI
             if (!_buttonRaycastImage || !_buttonRaycastImage.raycastTarget)
             {
                 List<Image> images = GetComponentsInChildren<Image>().ToList();
-                _buttonRaycastImage = images.First(i => i.raycastTarget);
+                try
+                {
+                    _buttonRaycastImage = images.First(i => i.raycastTarget);
+                }
+                catch (InvalidOperationException) { }
             }
 
             _enterDelay = Mathf.Max(_enterDelay, 0f);
