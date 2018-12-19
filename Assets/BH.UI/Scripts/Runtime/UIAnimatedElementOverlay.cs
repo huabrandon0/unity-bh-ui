@@ -14,12 +14,38 @@ namespace BH.UI
 
         void Awake()
         {
-            _uiAnimatedElements = new List<UIAnimatedElement>(GetComponentsInChildren<UIAnimatedElement>());
+            _uiAnimatedElements = GetComponentsInChildren<UIAnimatedElement>().ToList();
             _enterDuration = (from x in _uiAnimatedElements select x.AnimatedElementSettings._enterDuration + x.EnterDelay).Max();
             _exitDuration = (from x in _uiAnimatedElements select x.AnimatedElementSettings._exitDuration + x.ExitDelay).Max();
         }
 
-        public void Enter()
+        public void Enter(NoArgDelegate callback = null)
+        {
+            StartCoroutine(AsyncEnter(callback));
+        }
+
+        public void Exit(NoArgDelegate callback = null)
+        {
+            StartCoroutine(AsyncExit(callback));
+        }
+
+        IEnumerator AsyncEnter(NoArgDelegate callback = null)
+        {
+            AnimateEnter();
+            yield return new WaitForSeconds(_enterDuration);
+            if (callback != null)
+                callback.Invoke();
+        }
+
+        IEnumerator AsyncExit(NoArgDelegate callback = null)
+        {
+            AnimateExit();
+            yield return new WaitForSeconds(_exitDuration);
+            if (callback != null)
+                callback.Invoke();
+        }
+
+        void AnimateEnter()
         {
             foreach (UIAnimatedElement uiElementAnimator in _uiAnimatedElements)
             {
@@ -35,15 +61,8 @@ namespace BH.UI
                 }
             }
         }
-        
-        public IEnumerator Enter(NoArgDelegate callback)
-        {
-            Enter();
-            yield return new WaitForSeconds(_enterDuration);
-            callback.Invoke();
-        }
-        
-        public void Exit()
+
+        void AnimateExit()
         {
             foreach (UIAnimatedElement uiElementAnimator in _uiAnimatedElements)
             {
@@ -58,13 +77,6 @@ namespace BH.UI
                         break;
                 }
             }
-        }
-
-        public IEnumerator Exit(NoArgDelegate callback)
-        {
-            Exit();
-            yield return new WaitForSeconds(_exitDuration);
-            callback.Invoke();
         }
     }
 }

@@ -104,8 +104,8 @@ namespace BH.UI
                 else
                     instance.gameObject.SetActive(false);
 
-                // Re-activate top menu
-                // If a re-activated menu is an overlay we need to activate the menu under it
+                // Reactivate the top menu.
+                // If a reactivated menu is an overlay we need to activate the menu under it.
                 foreach (var menu in menuStack)
                 {
                     menu.gameObject.SetActive(true);
@@ -119,16 +119,9 @@ namespace BH.UI
             }
 
             if (instance._animatedElementOverlay)
-            {
-                StartCoroutine(instance._animatedElementOverlay.Exit(() =>
-                {
-                    CloseTopMenuHelper();
-                }));
-            }
+                instance._animatedElementOverlay.Exit(CloseTopMenuHelper);
             else
-            {
                 CloseTopMenuHelper();
-            }
         }
 
         private void Update()
