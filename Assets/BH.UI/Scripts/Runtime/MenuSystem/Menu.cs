@@ -5,6 +5,12 @@ namespace BH.UI
     public abstract class Menu<T> : Menu where T : Menu<T>
     {
         public static T Instance { get; private set; }
+        protected static bool _isClosing = false;
+        public static bool IsClosing
+        {
+            get { return _isClosing; }
+            private set { _isClosing = value; }
+        }
 
         protected virtual void Awake()
         {
@@ -21,6 +27,9 @@ namespace BH.UI
 
         protected static void Open(bool animate = true, NoArgDelegate callback = null)
         {
+            if (IsClosing)
+                return;
+
             if (Instance == null)
                 MenuManager.Instance.CreateInstance<T>();
             else
@@ -36,8 +45,18 @@ namespace BH.UI
                 //Debug.LogErrorFormat("Trying to close menu {0} but Instance is null", typeof(T));
                 return false;
             }
+            else if (IsClosing)
+            {
+                return true;
+            }
 
-            return MenuManager.Instance.CloseMenu(Instance, animate, callback);
+            IsClosing = true;
+            return MenuManager.Instance.CloseMenu(Instance, animate, () =>
+            {
+                IsClosing = false;
+                if (callback != null)
+                    callback.Invoke();
+            });
         }
 
         public override void OnBackPressed()
