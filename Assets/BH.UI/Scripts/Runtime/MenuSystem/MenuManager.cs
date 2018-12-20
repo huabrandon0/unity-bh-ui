@@ -8,6 +8,8 @@ namespace BH.UI
     {
         public MainMenu MainMenuPrefab;
         public SettingsMenu SettingsMenuPrefab;
+        public Setting1Menu Setting1MenuPrefab;
+        public Setting2Menu Setting2MenuPrefab;
 
         private Stack<Menu> menuStack = new Stack<Menu>();
 
@@ -32,8 +34,11 @@ namespace BH.UI
 		    Instantiate(prefab, transform);
 	    }
 
-	    public void OpenMenu(Menu menu, NoArgDelegate callback = null)
+	    public void OpenMenu(Menu menu, bool animate = true, NoArgDelegate callback = null)
         {
+            if (menuStack.Count > 0 && menuStack.Peek() == menu)
+                return;
+
             // Deactivate top menu.
             if (menuStack.Count > 0)
             {
@@ -52,7 +57,7 @@ namespace BH.UI
                 var previousCanvas = menuStack.Peek().GetComponent<Canvas>();
 			    topCanvas.sortingOrder = previousCanvas.sortingOrder + 1;
             }
-
+            
             menuStack.Push(menu);
 
             if (menu._animatedElementOverlay)
@@ -78,24 +83,36 @@ namespace BH.UI
             throw new MissingReferenceException("Prefab not found for type " + typeof(T));
         }
 	    
-	    public void CloseMenu(Menu menu, NoArgDelegate callback = null)
+	    public bool CloseMenu(Menu menu, bool animate = true, NoArgDelegate callback = null)
 	    {
-		    if (menuStack.Count == 0)
-		    {
-			    Debug.LogErrorFormat(menu, "{0} cannot be closed because menu stack is empty", menu.GetType());
-			    return;
-		    }
+		    //if (menuStack.Count == 0)
+		    //{
+			   // Debug.LogErrorFormat(menu, "{0} cannot be closed because menu stack is empty.", menu.GetType());
+			   // return false;
+		    //}
 
-		    if (menuStack.Peek() != menu)
-		    {
-			    Debug.LogErrorFormat(menu, "{0} cannot be closed because it is not on top of stack", menu.GetType());
-			    return;
-		    }
+		    //if (menuStack.Peek() != menu)
+		    //{
+			   // Debug.LogErrorFormat(menu, "{0} cannot be closed because it is not on top of stack", menu.GetType());
+			   // return false;
+		    //}
 
-		    CloseTopMenu(callback);
+            if (!menuStack.Contains(menu))
+            {
+                //Debug.LogErrorFormat(menu, "{0} cannot be closed because it is not in the stack.", menu.GetType());
+                return false;
+            }
+
+            // Close non-target menus.
+            while (menuStack.Peek() != menu)
+                CloseTopMenu();
+
+            // Close target menu.
+            CloseTopMenu(animate, callback);
+            return true;
 	    }
 
-        public void CloseTopMenu(NoArgDelegate callback = null)
+        public void CloseTopMenu(bool animate = true, NoArgDelegate callback = null)
         {
             var topMenu = menuStack.Pop();
 
@@ -120,7 +137,7 @@ namespace BH.UI
                     callback.Invoke();
             }
 
-            if (topMenu._animatedElementOverlay)
+            if (topMenu._animatedElementOverlay && animate)
                 topMenu._animatedElementOverlay.Exit(CloseTopMenuHelper);
             else
                 CloseTopMenuHelper();

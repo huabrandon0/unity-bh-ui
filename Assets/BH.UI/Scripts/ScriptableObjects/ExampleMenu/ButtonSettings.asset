@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d3a1ed142758e347899a9f585fe52aa, type: 3}
-  m_Name: ExampleUIAnimatedTitleSettings
+  m_Name: ButtonSettings
   m_EditorClassIdentifier: 
-  _enterFrom: {x: -200, y: 0, z: 0}
+  _enterFrom: {x: 0, y: -300, z: 0}
   _enterTo: {x: 0, y: 0, z: 0}
   _enterFromAlpha: 0
   _enterToAlpha: 1
-  _enterDuration: 1
-  _exitTo: {x: 0, y: 100, z: 0}
+  _enterDuration: 0.5
+  _exitTo: {x: 0, y: -300, z: 0}
   _exitToAlpha: 0
   _exitDuration: 1

@@ -362,6 +362,10 @@ MonoBehaviour:
     type: 3}
   SettingsMenuPrefab: {fileID: 5245544127941094337, guid: 0bc4aef1b6023b441acfefc93c33f0e2,
     type: 3}
+  Setting1MenuPrefab: {fileID: 6357623613630030703, guid: eabf71c787db5924fbe1d05378c84db3,
+    type: 3}
+  Setting2MenuPrefab: {fileID: 4859669327994370205, guid: 89786b71fa609b54385bc61ce5fa2880,
+    type: 3}
 --- !u!4 &1713539347
 Transform:
   m_ObjectHideFlags: 0

@@ -19,25 +19,25 @@ namespace BH.UI
             Instance = null;
         }
 
-        protected static void Open(NoArgDelegate callback = null)
+        protected static void Open(bool animate = true, NoArgDelegate callback = null)
         {
             if (Instance == null)
                 MenuManager.Instance.CreateInstance<T>();
             else
                 Instance.gameObject.SetActive(true);
 
-            MenuManager.Instance.OpenMenu(Instance, callback);
+            MenuManager.Instance.OpenMenu(Instance, animate, callback);
         }
 
-        protected static void Close(NoArgDelegate callback = null)
+        protected static bool Close(bool animate = true, NoArgDelegate callback = null)
         {
             if (Instance == null)
             {
-                Debug.LogErrorFormat("Trying to close menu {0} but Instance is null", typeof(T));
-                return;
+                //Debug.LogErrorFormat("Trying to close menu {0} but Instance is null", typeof(T));
+                return false;
             }
 
-            MenuManager.Instance.CloseMenu(Instance, callback);
+            return MenuManager.Instance.CloseMenu(Instance, animate, callback);
         }
 
         public override void OnBackPressed()

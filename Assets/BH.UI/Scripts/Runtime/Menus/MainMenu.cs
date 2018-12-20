@@ -6,7 +6,7 @@ namespace BH.UI
     {
         public void OnSettingsButtonPressed()
         {
-            Hide(() =>
+            Hide(callback: () =>
             {
                 SettingsMenu.Show();
             });

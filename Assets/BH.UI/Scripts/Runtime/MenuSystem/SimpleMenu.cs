@@ -5,14 +5,14 @@
     /// </summary>
     public abstract class SimpleMenu<T> : Menu<T> where T : SimpleMenu<T>
     {
-        public static void Show(NoArgDelegate callback = null)
+        public static void Show(bool animate = true, NoArgDelegate callback = null)
         {
-            Open(callback);
+            Open(animate, callback);
         }
 
-        public static void Hide(NoArgDelegate callback = null)
+        public static bool Hide(bool animate = true, NoArgDelegate callback = null)
         {
-            Close(callback);
+            return Close(animate, callback);
         }
     }
 }
