@@ -1,9 +1,15 @@
 # unity-bh-ui
 My implementation of UI buttons with animations in Unity. Made with **Unity version 2018.3.0f2**.
 
-Example menu: https://youtu.be/_G5cgCmf86U. Based on the Unity menu system tutorial [here][2].
+### Example scene
 
-### How to load up the example scene in Unity:
+<p align="center">
+  <img width="640" height="360" src="https://github.com/huabrandon0/unity-bh-ui/blob/master/gifs/unity-bh-ui-example-menu.gif"> </br>
+</p>
+
+Based on the Unity menu system tutorial [here][2].
+
+### How to load up the example scene in Unity
 
 1. Download the BH.UI.unitypackage file from the [releases][1].
 2. Load up a new project in Unity.
