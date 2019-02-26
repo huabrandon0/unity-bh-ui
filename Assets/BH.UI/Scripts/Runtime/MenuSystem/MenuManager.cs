@@ -143,13 +143,13 @@ namespace BH.UI
                 CloseTopMenuHelper();
         }
 
-        private void Update()
-        {
-            // On Android the back button is sent as Esc
-            if (Input.GetKeyDown(KeyCode.Escape) && menuStack.Count > 0)
-            {
-                menuStack.Peek().OnBackPressed();
-            }
-        }
+        //private void Update()
+        //{
+        //    // On Android the back button is sent as Esc
+        //    if (Input.GetKeyDown(KeyCode.Escape) && menuStack.Count > 0)
+        //    {
+        //        menuStack.Peek().OnBackPressed();
+        //    }
+        //}
     }
 }

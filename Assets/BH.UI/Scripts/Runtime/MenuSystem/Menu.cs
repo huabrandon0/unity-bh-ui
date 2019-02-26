@@ -58,11 +58,6 @@ namespace BH.UI
                     callback.Invoke();
             });
         }
-
-        public override void OnBackPressed()
-        {
-            Close();
-        }
     }
 
     public abstract class Menu : MonoBehaviour
@@ -74,8 +69,6 @@ namespace BH.UI
 
         [Tooltip("Disable menus that are under this one in the stack")]
         public bool DisableMenusUnderneath = true;
-
-        public abstract void OnBackPressed();
 
         protected virtual void OnValidate()
         {
