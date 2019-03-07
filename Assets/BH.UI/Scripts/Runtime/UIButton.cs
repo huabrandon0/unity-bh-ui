@@ -12,7 +12,6 @@ namespace BH.UI
     [AddComponentMenu("UI/BH.UI - UIButton")]
     public class UIButton : UIAnimatedElement, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
-
         interface IButtonState
         {
             void OnPointerEnter();
