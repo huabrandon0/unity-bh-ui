@@ -7,8 +7,6 @@ My implementation of UI buttons with animations in Unity. Made with **Unity vers
   <img width="640" height="360" src="https://github.com/huabrandon0/unity-bh-ui/blob/master/gifs/unity-bh-ui-example-menu.gif"> </br>
 </p>
 
-Based on the Unity menu system tutorial [here][2].
-
 ### How to load up the example scene in Unity
 
 1. Download the BH.UI.unitypackage file from the [releases][1].
